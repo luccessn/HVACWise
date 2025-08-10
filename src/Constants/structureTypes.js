@@ -1,0 +1,146 @@
+/* eslint-disable prettier/prettier */
+export const structureTypes = [
+  {
+    label: "გ.კ",
+    j27: 0.8,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1,
+  },
+  {
+    label: "ვიტრაჟი",
+    j27: 2.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1.05,
+  },
+  {
+    label: "მინის კარი",
+    j27: 2.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1.5,
+  },
+  {
+    label: "რკინის კარი",
+    j27: 5.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1.5,
+  },
+  {
+    label: "გკ, ბლოკის",
+    j27: 1.2,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1,
+  },
+  {
+    label: "ფანჯარა",
+    j27: 2.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1.05,
+  },
+  {
+    label: "შ.კ",
+    j27: 2.0,
+    L27: 0,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1,
+  },
+  {
+    label: "შიდა კარი",
+    j27: 5.0,
+    L27: 0,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1.5,
+  },
+  {
+    label: "გ.კ. გრუნტში",
+    j27: 0.35,
+    L27: 0,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1,
+  },
+  {
+    label: "იატაკი გრ",
+    j27: 0.35,
+    L27: 0,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1,
+  },
+  {
+    label: "იატაკი",
+    j27: 1.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1,
+  },
+  {
+    label: "მინის ჭერი",
+    j27: 3.0,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1.2,
+    r27: 1,
+  },
+  {
+    label: "ჭერი",
+    j27: 0.6,
+    L27: -8,
+    k27: 22,
+    get M27() {
+      return this.k27 - this.L27;
+    },
+    q27: 1,
+    r27: 1,
+  },
+];
