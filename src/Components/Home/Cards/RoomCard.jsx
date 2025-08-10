@@ -20,12 +20,15 @@ export const RoomCard = ({ apt }) => {
 
       {/* ოთახის დამატება */}
       <AddRoomForm
-        onAddRoom={(roomName) => {
-          if (!roomName.trim()) return;
+        onAddRoom={(room) => {
+          if (!room.name.trim()) return;
           const newRoom = {
             id: Date.now(),
-            name: roomName,
-            structures: [],
+            name: room.name.trim(),
+            m2: room.m2,
+            sunny: room.sunny, // ← აქ უნდა იყოს ეს სახელები
+            humans: room.humans,
+            structures: room.structures,
           };
           dispatch(addRoomToApartmentAction(apt.id, newRoom));
         }}
@@ -42,6 +45,8 @@ export const RoomCard = ({ apt }) => {
 
                 {/* სტრუქტურის დამატება/რედაქტირება */}
                 <StructureForm
+                  apartmentId={apt.id} // ✅ გადასცემ ბინას ID-ს
+                  roomId={room.id} // ✅ გადასცემ ოთახის ID-ს
                   onAddStructure={(structure) => {
                     if (editingStructure) {
                       dispatch(
@@ -73,6 +78,7 @@ export const RoomCard = ({ apt }) => {
                   }
                   cancelEdit={() => setEditingStructure(null)}
                 />
+
                 {room.structures.length > 0 && (
                   <>
                     <CalctCards

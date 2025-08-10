@@ -2,9 +2,12 @@
 import React from "react";
 // import { useAppContext } from "../../Context/AppContextProvider";
 // import { removeStructureFromRoomAction } from "../../Context/AppActionsCreators";
-import { CalctCard } from "./CalctCard";
+// import { CalctCard } from "./CalctCard";
+import { removeStructureFromRoomAction } from "../../Context/AppActionsCreators";
+import { useAppContext } from "../../Context/AppContextProvider";
 
 export const CalctCards = ({ room, setEditingStructure, apt }) => {
+  const { dispatch } = useAppContext();
   //   const p27 = 18;
   //   const { dispatch } = useAppContext();
   const sumS27 = room.structures.reduce((sum, s) => {
@@ -22,6 +25,8 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
     const ac27 = 1 * 120 * (s.z27 || 0);
     const af27 = (s.ae27 || 0) * 11;
     const ag27 = af27 + ac27 + x27 + t27;
+    console.log(s.ae27);
+
     return sum + ag27;
   }, 0);
 
@@ -31,42 +36,36 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
       {" "}
       <ul className="pl-5 list-disc text-sm mt-2">
         {room.structures.map((s, i) => (
-          //   <li key={i}>
-          //     {s.type} – {s.length}მ x {s.height}მ = {s.i27} მ² | კოეფიციენტი (k):{" "}
-          //     {s.k} | k27: {s.k27 ?? "?"} | M27: {s.M27 ?? "?"} |{" "}
-          //     {s.length * s.height}
-          //     <div className="flex pl-20 flex-row gap-2 mt-2">
-          //       <button
-          //         onClick={() => {
-          //           setEditingStructure({
-          //             aptId: apt.id,
-          //             roomId: room.id,
-          //             structureIndex: i,
-          //             structure: s,
-          //           });
-          //         }}
-          //         className="text-blue-600"
-          //       >
-          //         გამოსწორება
-          //       </button>
-          //       <button
-          //         onClick={() => {
-          //           if (confirm("ნამდვილად გსურს წაშლა?")) {
-          //             dispatch(removeStructureFromRoomAction(apt.id, room.id, i));
-          //           }
-          //         }}
-          //         className="text-red-600"
-          //       >
-          //         წაშლა
-          //       </button>
-          //     </div>
-          //   </li>
-          <CalctCard
-            key={i}
-            props={s}
-            setEditingStructure={setEditingStructure}
-            apt={apt}
-          />
+          <li key={i}>
+            {s.type} – {s.length}მ x {s.height}მ = {s.i27} მ² | კოეფიციენტი (k):{" "}
+            {s.k} | k27: {s.k27 ?? "?"} | M27: {s.M27 ?? "?"} |{" "}
+            {s.length * s.height} || {s.ae27} || {s.i27}
+            <div className="flex pl-20 flex-row gap-2 mt-2">
+              <button
+                onClick={() => {
+                  setEditingStructure({
+                    aptId: apt.id,
+                    roomId: room.id,
+                    structureIndex: i,
+                    structure: s,
+                  });
+                }}
+                className="text-blue-600"
+              >
+                გამოსწორება
+              </button>
+              <button
+                onClick={() => {
+                  if (confirm("ნამდვილად გსურს წაშლა?")) {
+                    dispatch(removeStructureFromRoomAction(apt.id, room.id, i));
+                  }
+                }}
+                className="text-red-600"
+              >
+                წაშლა
+              </button>
+            </div>
+          </li>
         ))}
       </ul>
       {/* ✅ i27 ჯამი */}
@@ -75,7 +74,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
         {room.structures.reduce((sum, s) => sum + Number(s.i27 || 0), 0)} მ²
       </div>
       <div>
-        <ul className="pl-5 list-disc text-sm mt-2">
+        {/* <ul className="pl-5 list-disc text-sm mt-2">
           {room.structures.map((s, i) => (
             <CalctCard
               key={i}
@@ -84,7 +83,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
               apt={apt}
             />
           ))}
-        </ul>
+        </ul> */}
         <div className="mt-2 text-right font-semibold text-blue-600">
           ჯამური ფართობი (SUM S27/1000): {sum.toFixed(2)}{" "}
           {/* ციფრების ოდენობა შეგიძლია დაარეგულირო */}

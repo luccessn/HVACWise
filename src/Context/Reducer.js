@@ -30,7 +30,15 @@ export const Reducer = (state, action) => {
             apt.id === payload.apartmentId
               ? {
                   ...apt,
-                  rooms: [...apt.rooms, payload.room],
+                  rooms: [
+                    ...apt.rooms,
+                    {
+                      ...payload.room,
+                      m2: Number(payload.room.m2) || 0, // ✅ ყოველთვის ჩასვით
+                      sunny: Number(payload.room.sunny) || 0,
+                      humans: Number(payload.room.humans) || 0,
+                    },
+                  ],
                 }
               : apt
           ),
