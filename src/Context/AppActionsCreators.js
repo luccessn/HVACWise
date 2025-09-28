@@ -20,6 +20,17 @@ export const addStructureToRoomAction = (apartmentId, roomId, structure) => ({
 });
 
 ///Clear Remove
+
+export const removeRoomFromApartmenst = (apartmentId, roomId) => ({
+  type: AppActions.REMOVE_ROOM_FROM_APARTMENT,
+  payload: { apartmentId, roomId },
+});
+
+export const removeApartmentFromFloorAction = (floorId, apartmentId) => ({
+  type: AppActions.REMOVE_APARTMENT_FROM_FLOOR,
+  payload: { floorId, apartmentId },
+});
+
 export const removeFlorAction = (itemId) => {
   return {
     type: AppActions.REMOVE_FLOOR,

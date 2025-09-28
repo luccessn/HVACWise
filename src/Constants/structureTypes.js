@@ -5,9 +5,13 @@ export const structureTypes = [
     j27: 0.8,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+    // get M27() {
+    //   return this.k27 - this.L27;
+    // },
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1,
   },
@@ -16,9 +20,11 @@ export const structureTypes = [
     j27: 2.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1.05,
   },
@@ -27,9 +33,11 @@ export const structureTypes = [
     j27: 2.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1.5,
   },
@@ -38,9 +46,11 @@ export const structureTypes = [
     j27: 5.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1.5,
   },
@@ -49,9 +59,11 @@ export const structureTypes = [
     j27: 1.2,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1,
   },
@@ -60,9 +72,11 @@ export const structureTypes = [
     j27: 2.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1.05,
   },
@@ -71,9 +85,11 @@ export const structureTypes = [
     j27: 2.0,
     L27: 0,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 22, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1,
   },
@@ -82,9 +98,11 @@ export const structureTypes = [
     j27: 5.0,
     L27: 0,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 22, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1.5,
   },
@@ -93,9 +111,11 @@ export const structureTypes = [
     j27: 0.35,
     L27: 0,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 22, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1,
   },
@@ -104,9 +124,11 @@ export const structureTypes = [
     j27: 0.35,
     L27: 0,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 22, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1,
   },
@@ -115,9 +137,11 @@ export const structureTypes = [
     j27: 1.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1,
   },
@@ -126,9 +150,11 @@ export const structureTypes = [
     j27: 3.0,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1.2,
     r27: 1,
   },
@@ -137,9 +163,11 @@ export const structureTypes = [
     j27: 0.6,
     L27: -8,
     k27: 22,
-    get M27() {
-      return this.k27 - this.L27;
-    },
+
+    M27: 30, // k27-l27
+    N27: 22,
+    O27: 40,
+    P27: 18,
     q27: 1,
     r27: 1,
   },

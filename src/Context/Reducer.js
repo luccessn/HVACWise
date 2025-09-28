@@ -36,6 +36,9 @@ export const Reducer = (state, action) => {
                       ...payload.room,
                       m2: Number(payload.room.m2) || 0, // ✅ ყოველთვის ჩასვით
                       sunny: Number(payload.room.sunny) || 0,
+                      sunnyLabel: payload.room.sunnyLabel || "",
+                      Temp: payload.room.Temp || "",
+
                       humans: Number(payload.room.humans) || 0,
                     },
                   ],
@@ -67,11 +70,42 @@ export const Reducer = (state, action) => {
           ),
         })),
       };
+    //removes
+    case AppActions.REMOVE_ROOM_FROM_APARTMENT:
+      return {
+        ...state,
+        hvacItems: state.hvacItems.map((floor) => ({
+          ...floor,
+          apartments: floor.apartments.map((apt) =>
+            apt.id === payload.apartmentId
+              ? {
+                  ...apt,
+                  rooms: apt.rooms.filter((room) => room.id !== payload.roomId),
+                }
+              : apt
+          ),
+        })),
+      };
+
+    case AppActions.REMOVE_APARTMENT_FROM_FLOOR:
+      return {
+        ...state,
+        hvacItems: state.hvacItems.map((floor) =>
+          floor.floorId === payload.floorId
+            ? {
+                ...floor,
+                apartments: floor.apartments.filter(
+                  (apt) => apt.id !== payload.apartmentId
+                ),
+              }
+            : floor
+        ),
+      };
 
     case AppActions.REMOVE_FLOOR:
       return {
         ...state,
-        hvacItems: state.hvacItems.filter((item) => item.id !== payload),
+        hvacItems: state.hvacItems.filter((floor) => floor.floorId !== payload),
       };
 
     case AppActions.CLEAR_HVAC:
