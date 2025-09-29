@@ -22,7 +22,6 @@ export const StructureForm = ({
   cancelEdit,
 }) => {
   const { state } = useAppContext();
-  console.log(state.hvacItems);
 
   // ვპოულობთ ამჟამინდელ ოთახს state-იდან
   const currentRoom = state.hvacItems
@@ -45,7 +44,6 @@ export const StructureForm = ({
       m2: currentRoom?.m2 || "",
     }));
   }, [currentRoom]);
-  console.log(currentRoom?.sunnyLabel);
 
   const [ErStructure, setErStructure] = useState(false);
   // const currentApart = state.hvacItems

@@ -38,17 +38,3 @@ function App() {
 }
 
 export default App;
-{
-  /* <div className="w-full h-full">
-          <RippleGrid
-            enableRainbow={false}
-            gridColor="#ffffff"
-            rippleIntensity={0.03}
-            gridSize={10}
-            gridThickness={15}
-            mouseInteraction={true}
-            mouseInteractionRadius={1.2}
-            opacity={1.8}
-          />
-        </div> */
-}

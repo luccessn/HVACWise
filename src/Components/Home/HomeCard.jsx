@@ -20,7 +20,6 @@ export const HomeCard = () => {
   // const allRoomNames = state.hvacItems.flatMap((floor) =>
   //   floor.apartments.map((apartment) => apartment.name)
   // );
-  console.log(ErrorApart);
   const AddApartment = (floor) => {
     const ApartName = floorApartmentsNames[floor.floorId].toLowerCase().trim();
     const floorApartmentNames =
@@ -29,7 +28,6 @@ export const HomeCard = () => {
         ?.apartments.map((a) => a.name.toLowerCase().trim()) || [];
     if (floorApartmentNames.includes(ApartName)) {
       setErrorApart(true);
-      console.log("ere");
     } else {
       const name = floorApartmentsNames[floor.floorId];
       if (!name?.trim()) return;
@@ -120,6 +118,17 @@ export const HomeCard = () => {
           `}
         >
           {" "}
+          {state.hvacItems.length === 0 ? (
+            <div className="translate-y-32">
+              <h2 className="bg-clip-text text-transparent text-center  bg-gradient-to-b from-neutral-900 to-neutral-500  text-2xl md:text-4xl lg:text-6xl font-sans py-8 relative z-20 font-bold tracking-tight">
+                HVACWise =/ Solutions.
+              </h2>
+              <p className="max-w-xl mx-auto  text-sm md:text-lg   text-neutral-500 text-center">
+                HVACWise გაძლევს შენობის კლიმატზე სრულ კონტროლს — ზუსტი სითბოს
+                ნაკადის ანალიტიკით .
+              </p>
+            </div>
+          ) : null}
           <PanelGroup accordion defaultActiveKey={state.hvacItems[0]?.floorId}>
             <div className="  flex flex-col gap-3">
               {state.hvacItems.map((floor) => (

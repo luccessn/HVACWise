@@ -37,14 +37,9 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
     // }
 
     const ag27 = s.af27 + s.ac27 + s.x27 + s.t27;
-    console.log(ag27);
-    console.log(s.ac27);
-    console.log(s.x27);
-    console.log(s.t27);
 
     return sum + ag27;
   }, 0);
-  console.log(room);
   // z27=xalxi,, Mm27 == kv ,
   const sumG = sumAg27 / 1000;
   return (

@@ -23,7 +23,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
     humans: "",
     roomtemp: "",
   });
-  console.log(apartmentId);
   const [roomError, setroomError] = useState("");
   const currentApart = state.hvacItems
     ?.flatMap((floor) => floor.apartments ?? [])

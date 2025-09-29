@@ -17,7 +17,6 @@ export const AddFloor = () => {
   // }, false);
   const addFloor = () => {
     if (allfloorname.includes(floorName)) {
-      console.log("errori shemqmnaze");
       seterrorOpen(true);
     } else {
       if (!floorName.trim()) return;
@@ -40,9 +39,7 @@ export const AddFloor = () => {
       seterrorOpen(false);
     }
   };
-  console.log(state);
 
-  //   console.log(state.hvacItems);
   return (
     <div className="">
       <h1 className="text-2xl font-bold mb-6">

@@ -70,11 +70,6 @@ export const RoomCard = ({ apt }) => {
                         );
                         setEditingStructure(null);
                       } else {
-                        console.log("ADDING STRUCTURE", {
-                          aptId: apt.id,
-                          roomId: room.id,
-                          structure,
-                        });
                         dispatch(
                           addStructureToRoomAction(apt.id, room.id, structure)
                         );
