@@ -17,7 +17,6 @@ const getInitialState = () => {
       const decoded = safeDecode(token);
       hvacItems = JSON.parse(decoded);
     } catch (err) {
-      console.error("ჩაიშალა კოვზი ნაცარში N2:", err);
       localStorage.removeItem("hvacToken");
     }
   }
@@ -31,7 +30,7 @@ export const AppContextProvider = ({ children }) => {
       const token = safeEncode(JSON.stringify(state.hvacItems));
       localStorage.setItem("hvacToken", token);
     } catch (err) {
-      console.error("ჩაიშალა კოვზი ნაცარში N1:", err);
+      // console.error("ჩაიშალა კოვზი ნაცარში N1:", err);
     }
   }, [state.hvacItems]);
 

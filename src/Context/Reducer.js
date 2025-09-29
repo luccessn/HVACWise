@@ -48,7 +48,6 @@ export const Reducer = (state, action) => {
         })),
       };
     case AppActions.ADD_STRUCTURE_TO_ROOM:
-      console.log("REDUCER ADD_STRUCTURE_TO_ROOM", payload);
       return {
         ...state,
         hvacItems: state.hvacItems.map((floor) => ({
