@@ -121,7 +121,7 @@ export const HomeCard = () => {
           {state.hvacItems.length === 0 ? (
             <div className="translate-y-32">
               <h2 className="bg-clip-text text-transparent text-center  bg-gradient-to-b from-neutral-900 to-neutral-500  text-2xl md:text-4xl lg:text-6xl font-sans py-8 relative z-20 font-bold tracking-tight">
-                HVACWise =/ Solutions.
+                HVACWISE =/ Solutions.
               </h2>
               <p className="max-w-xl mx-auto  text-sm md:text-lg   text-neutral-500 text-center">
                 HVACWise გაძლევს შენობის კლიმატზე სრულ კონტროლს — ზუსტი სითბოს
