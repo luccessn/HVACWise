@@ -84,15 +84,19 @@ export const StructureForm = ({
       const t27 = I27 * (D27 || 0) * (selected?.P27 || 0);
 
       let x27, af27, ac27;
-      // ვამოწმებთ, უკვე არსებობს თუ არა ვიტრაჟი ოთახში
+      // // ვამოწმებთ, უკვე არსებობს თუ არა ვიტრაჟი ოთახში
+      const PRIORITY_TYPES = ["ვიტრაჟი", "ფანჯარა", "მინის კარი"];
+
       const alreadyHasVitrazh =
-        currentRoom?.structures?.some((s) => s.type === "ვიტრაჟი") || false;
+        currentRoom?.structures?.some((s) => PRIORITY_TYPES.includes(s.type)) ||
+        false;
+      const isPriorityType = PRIORITY_TYPES.includes(form.type);
 
       if (form.type === "იატაკი" || form.type === "ჭერი") {
         x27 = 1;
         af27 = 1;
         ac27 = 1;
-      } else if (form.type === "ვიტრაჟი" && !alreadyHasVitrazh) {
+      } else if (isPriorityType && !alreadyHasVitrazh) {
         // პირველი ვიტრაჟი
         x27 = 0.4 * (v27 || 0) * I27;
         ac27 = 120 * (z27 || 0);
@@ -234,7 +238,7 @@ export const StructureForm = ({
               name="quantity"
               value={form.quantity}
               onChange={ChangeInput}
-              className={`w-[60px] h-[40px] text-zinc-500  border-2 rounded-md px-5 font-bold  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              className={`w-[90px] h-[40px] text-zinc-500  border-2 rounded-md px-5  font-bold  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             >
               <option value="1">1</option>
               <option value="2">2</option>
