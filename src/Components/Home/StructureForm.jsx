@@ -83,25 +83,39 @@ export const StructureForm = ({
 
       const t27 = I27 * (D27 || 0) * (selected?.P27 || 0);
 
-      let x27, af27, ac27;
+      let x27, af27, ac27,priort;
       // // ვამოწმებთ, უკვე არსებობს თუ არა ვიტრაჟი ოთახში
       const PRIORITY_TYPES = ["ვიტრაჟი", "ფანჯარა", "მინის კარი"];
 
-      const alreadyHasVitrazh =
-        currentRoom?.structures?.some((s) => PRIORITY_TYPES.includes(s.type)) ||
-        false;
+      // const alreadyHasVitrazh =
+      //   currentRoom?.structures?.some((s) => PRIORITY_TYPES.includes(s.type)) ||
+      //   false;
       const isPriorityType = PRIORITY_TYPES.includes(form.type);
+
+
+
+// ფილტრავს პრიორიტეტულ სტრუქტურებს, მაგრამ გამოტოვებს ამჟამინდელ სარედაქტიროს (თუ ვიყენებთ რედაქტორს)
+const otherPriorityStructures = (currentRoom?.structures || []).filter(
+  (s, idx) =>
+    PRIORITY_TYPES.includes(s.type) &&
+    !(editingStructure && currentRoom.structures[idx] === editingStructure)
+);
+
+const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
+
 
       if (form.type === "იატაკი" || form.type === "ჭერი") {
         x27 = 1;
         af27 = 1;
         ac27 = 1;
-      } else if (isPriorityType && !alreadyHasVitrazh) {
-        // პირველი ვიტრაჟი
+      } else if (isFirstPriority) {
+        // პირველი type
         x27 = 0.4 * (v27 || 0) * I27;
         ac27 = 120 * (z27 || 0);
         af27 = Mm27 * 11;
-      } else {
+        priort="პრიორიტეტი!"
+      } 
+      else {
         x27 = 1;
         af27 = 1;
         ac27 = 1;
@@ -134,6 +148,7 @@ export const StructureForm = ({
         x27,
         af27,
         ac27,
+        priort,
         Temp: currentRoom?.Temp || "",
       };
 
