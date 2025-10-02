@@ -84,7 +84,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
 
 {s.priort ?  <div className="relative inline-block group">
       <button
-        className="relative animate-none hover:animate-bounce px-10 top-2 text-sm font-semibold text-orange-600 rounded-xl  transition-all duration-300 overflow-hidden"
+        className="relative hover:scale-110 px-10 top-2 text-sm font-semibold text-orange-600 rounded-xl  transition-all duration-300 overflow-hidden"
       >
         <div className="absolute inset-0  blur-xl group-hover:opacity-75 transition-opacity" />
         <span className="relative flex items-center gap-2">
@@ -123,14 +123,16 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
               </svg>
             </div>
             <h3 className="text-sm font-semibold text-white">
-              Important Information
+              მნიშვნელოვანია!
             </h3>
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm text-gray-300">
-              This is a tooltip with detailed information and custom styling.
-            </p>
+<p className="text-sm text-gray-300">
+  ეს სტრუქტურა პრიორიტეტულია — ერთდროულად მხოლოდ ერთი შეიძლება იყოს.  
+  თუ წაშლით, შემდეგში შეგიძლიათ ახალი დაამატოთ.  
+  პირველად დამატებისას გაითვალისწინეთ: ვიტრაჟი, ფანჯარა და მინის კარი არის პრიორიტეტული სტრუქტურები.
+</p>
             <div className="flex items-center gap-2 text-xs text-gray-400">
               <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                 <path
