@@ -8,67 +8,86 @@ export const exportHVACExcel = async (hvacItems) => {
 
   let rowIndex = 1;
 
-  // სათაური
-  sheet.addRow([
-    "ბინა",
-    "ოთახი",
-    "სტრუქტურა",
-    "სიგრძე",
-    "სიმაღლე",
-    "რაოდენობა",
-    "i27",
-    "j27",
-    "k27",
-    "L27",
-    "M27",
-    "N27",
-    "O27",
-    "P27",
-    "q27",
-    "r27",
-    "s27",
-    "t27",
-    "qWinter",
-    "qSummer",
-    "Result",
-  ]);
+  // Header
+const headerTitles = [
+  { text: "ბინა" },
+  { text: "ოთახი" },
+  { text: "სტრუქტურა" },
+  { text: "სიგრძე", bgColor: "FFFF00" },
+  { text: "სიმაღლე", bgColor: "FFFF00" },
+  { text: "რაოდენობა", bgColor: "FFFF00" },
+  { text: "ფართი  m²" },
+  { text: "კონსტრუქციის თბოგადაცემის კოეფიციენტი k , wat/m²C" },
+  { text: "შიდა", fontColor: "FF0000" },
+  { text: "გარე", fontColor: "FF0000" },
+  { text: "ტემპერატურული სხვაობა (tS-tg)n", fontColor: "FF0000" },
+  { text: "შიდა", fontColor: "0000FF" },
+  { text: "გარე", fontColor: "FF0000" },
+  { text: "ტემპერატურული სხვაობა (tS-tg)n", fontColor: "0000FF" },
+  { text: "ჰორიზონტის მხარეებზე ორიენტაცია", fontColor: "FF0000" },
+  { text: "დანამატი ინფილტრაციაზე", fontColor: "FF0000" },
+  { text: "სათავსოს საბოლოო ტბოდანაკარგი vt.", fontColor: "FF0000" },
+  { text: "კონსტრუქციიდან შემოსული სიტბო vt", fontColor: "0000FF" },
+  { text: "კონსტრუქციის ორიენტაცია მხარეების მიხედვით" },
+  { text: "ერთეული" },
+  { text: "შემასწორებელი კოეფიციენტი K1" },
+  { text: "შემოსული სითბო w." },
+  { text: "წყაროს დასახელება" },
+  { text: "მათი რაოედენობა", bgColor: "FFFF00" }, // ყვითელი ფონი
+  { text: "ერთეულზე მოსული სითბო WAT" },
+  { text: "შემასწორებელი კოეფიციენტი K1" },
+  { text: "ჯამი WAT" },
+  { text: "ერთეული w/m2" },
+  { text: "მთლიანი ფართი m2" },
+  { text: "ჯამი" },
+  { text: "სითბოს მოდინება WAT" },
+  { text: "საბოლოო თბოდანაკარგი kvt", fontColor: "FF0000" },
+  { text: "საბოლოო სითბოს მოდინება kvt", fontColor: "0000FF" },
+];
+const headerRow = sheet.addRow(headerTitles.map(h => h.text));
+headerRow.height = 100;
 
-  const headerRow = sheet.getRow(rowIndex);
-  headerRow.height = 25;
-  headerRow.eachCell((cell) => {
-    cell.alignment = {
-      vertical: "middle",
-      horizontal: "center",
-      wrapText: true,
-    };
-    cell.font = { bold: true, size: 12 };
-    cell.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "DDDDDD" },
-    };
-    cell.border = {
-      top: { style: "thin" },
-      left: { style: "thin" },
-      bottom: { style: "thin" },
-      right: { style: "thin" },
-    };
-  });
+headerRow.eachCell((cell, colNumber) => {
+  const header = headerTitles[colNumber - 1]; // because colNumber is 1-based
+  cell.alignment = { vertical: "middle", horizontal: "center", textRotation: 90, wrapText: true };
+  cell.font = {
+    bold: true,
+    size: 11,
+    color: { argb: header?.fontColor || "000000" },
+  };
+  cell.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: header?.bgColor  }, // || bgColor: "FFFF00"
+  };
+  cell.border = {
+    top: { style: "thin" },
+    left: { style: "thin" },
+    bottom: { style: "thin" },
+    right: { style: "thin" },
+  };
+});
 
   rowIndex++;
+const getExcelColumnLetter = (colIndex) => {
+  let letter = "";
+  while (colIndex > 0) {
+    const remainder = (colIndex - 1) % 26;
+    letter = String.fromCharCode(65 + remainder) + letter;
+    colIndex = Math.floor((colIndex - 1) / 26);
+  }
+  return letter;
+};
 
-  // სართულები
+const lastColLetter = getExcelColumnLetter(headerTitles.length);
+  // Iterate Floors
   hvacItems.forEach((floor) => {
-    sheet.mergeCells(`A${rowIndex}:U${rowIndex}`);
+    sheet.mergeCells(`A${rowIndex}:${lastColLetter}${rowIndex}`);
     const floorCell = sheet.getCell(`A${rowIndex}`);
     floorCell.value = `სართული: ${floor.floorName}`;
     floorCell.alignment = { vertical: "middle", horizontal: "center" };
     floorCell.font = { bold: true, color: { argb: "FF0000" }, size: 14 };
-    floorCell.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FCD5CE" },
-    };
+    floorCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FCD5CE" } };
     floorCell.border = {
       top: { style: "thin" },
       left: { style: "thin" },
@@ -77,30 +96,20 @@ export const exportHVACExcel = async (hvacItems) => {
     };
     rowIndex++;
 
+    // Iterate Apartments
     floor.apartments.forEach((apt, aptIdx) => {
       const aptStartRow = rowIndex;
 
-      // ვთვლით ბინის შიგნით არსებული ყველა სტრუქტურის რაოდენობას
-      const aptRowCount = apt.rooms.reduce(
-        (sum, room) => sum + room.structures.length,
-        0
-      );
+      // Calculate how many total structures this apartment has
+      const aptRowCount = apt.rooms.reduce((sum, room) => sum + room.structures.length, 0);
 
-      // ბინის უჯრის გაერთიანება და სტილი
+      // Merge Apartment cell
       sheet.mergeCells(`A${aptStartRow}:A${aptStartRow + aptRowCount - 1}`);
       const aptCell = sheet.getCell(`A${aptStartRow}`);
       aptCell.value = `ბინა ${aptIdx + 1}`;
-      aptCell.alignment = {
-        vertical: "middle",
-        horizontal: "center",
-        wrapText: true,
-      };
+      aptCell.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
       aptCell.font = { bold: true, color: { argb: "FFFFFF" } };
-      aptCell.fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "228B22" },
-      };
+      aptCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "228B22" } };
       aptCell.border = {
         top: { style: "thin" },
         left: { style: "thin" },
@@ -108,31 +117,18 @@ export const exportHVACExcel = async (hvacItems) => {
         right: { style: "thin" },
       };
 
-      // ბინის სიმაღლის დაყენება — ყველა სტრუქტურის ჯამი
-      const aptMergedRow = sheet.getRow(aptStartRow);
-      aptMergedRow.height = aptRowCount * 20;
-
+      // For each room
       apt.rooms.forEach((room) => {
         const roomStartRow = rowIndex;
         const roomStructCount = room.structures.length;
 
-        // ოთახის უჯრის გაერთიანება და სტილი
-        sheet.mergeCells(
-          `B${roomStartRow}:B${roomStartRow + roomStructCount - 1}`
-        );
+        // Merge Room cell
+        sheet.mergeCells(`B${roomStartRow}:B${roomStartRow + roomStructCount - 1}`);
         const roomCell = sheet.getCell(`B${roomStartRow}`);
         roomCell.value = room.name;
-        roomCell.alignment = {
-          vertical: "middle",
-          horizontal: "center",
-          wrapText: true,
-        };
+        roomCell.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
         roomCell.font = { bold: true, color: { argb: "FFFFFF" } };
-        roomCell.fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: { argb: "228B22" },
-        };
+        roomCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "228B22" } };
         roomCell.border = {
           top: { style: "thin" },
           left: { style: "thin" },
@@ -140,101 +136,147 @@ export const exportHVACExcel = async (hvacItems) => {
           right: { style: "thin" },
         };
 
-        // ოთახის სიმაღლის დაყენება — მისი სტრუქტურების რაოდენობაზე დაყრდნობით
-        const roomMergedRow = sheet.getRow(roomStartRow);
-        roomMergedRow.height = roomStructCount * 20;
+        // Structures
+        
+headerRow.height = 100;
+room.structures.forEach((s) => {
+  const structureTitles = [
+      null,
+         null,
+    { text: s.type, bgColor: "FFFF00" },   // <- აქვე შეგიძლია ჩასვა მნიშვნელობა
+    { text: s.length, bgColor: "FFFF00" },
+    { text: s.height, bgColor: "FFFF00" },
+    { text: s.quantity, bgColor: "FFFF00" },
+    { text: s.i27 },
+    { text: s.j27 },
+    { text: s.k27, fontColor: "FF0000" },
+    { text: s.L27, fontColor: "FF0000" },
+    { text: s.M27, fontColor: "FF0000" },
+    { text: s.N27, fontColor: "0000FF" },
+    { text: s.O27, fontColor: "FF0000" },
+    { text: s.P27, fontColor: "0000FF" },
+    { text: s.q27, fontColor: "FF0000" },
+    { text: s.r27, fontColor: "FF0000" },
+    { text: s.s27, fontColor: "FF0000" },
+    { text: s.t27, fontColor: "0000FF" },
+    { text: s.sunnyLabel },
+    { text: s.v27 },
+    { text: s.w27 },
+    { text: s.x27 },
+    { text: s.y27 },
+    { text: s.z27, bgColor: "FFFF00" },
+    { text: s.aa27 },
+    { text: s.ab27 },
+    { text: s.ac27 },
+    { text: s.ad27 },
+    { text: s.Mm27, bgColor: "FFFF00" },
+    { text: s.af27, fontColor: "0000FF" },
+    { text: s.ag27 },
+  ];
 
-        // სტრუქტურები
-        room.structures.forEach((s) => {
-          const newRow = sheet.addRow([
-            null,
-            null,
-            s.type,
-            s.length,
-            s.height,
-            s.quantity,
-            s.i27,
-            s.j27,
-            s.k27,
-            s.L27,
-            s.M27,
-            s.N27,
-            s.O27,
-            s.P27,
-            s.q27,
-            s.r27,
-            s.s27,
-            s.t27,
-            s.qWinter,
-            s.qSummer,
-            s.result,
-          ]);
+  // 🟢 სტრუქტურის რიგი
+  const newRow = sheet.addRow(structureTitles.map(h => h.text));
 
-          newRow.eachCell((cell, colNumber) => {
-            // ცენტრში გასწორება
-            cell.alignment = { vertical: "middle", horizontal: "center" };
+  // 🟢 თითო უჯრაზე დავადოთ style იგივე ობიექტიდან
+  newRow.eachCell((cell, colNumber) => {
+    const style = structureTitles[colNumber - 1]; // index adjustment
 
-            // ბორდერი
-            cell.border = {
-              top: { style: "thin" },
-              left: { style: "thin" },
-              bottom: { style: "thin" },
-              right: { style: "thin" },
-            };
+    cell.alignment = { vertical: "middle", horizontal: "center" };
+  cell.border = {
+    top: { style: "thin" },
+    left: { style: "thin" },
+    bottom: { style: "thin" },
+    right: { style: "thin" },
+  };
 
-            // ფერები
-            if (colNumber === 3) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "FFFF99" },
-              };
-              cell.font = { color: { argb: "000000" } };
-            } else if ([4, 5, 6].includes(colNumber)) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "FFFF99" },
-              };
-              cell.font = { color: { argb: "000000" } };
-            } else if (colNumber === 7) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "FFFFFF" },
-              };
-              cell.font = { color: { argb: "000000" } };
-            } else if ([8, 9, 12, 13, 15, 16].includes(colNumber)) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "228B22" },
-              };
-              cell.font = { color: { argb: "000000" } };
-            } else if ([11, 17].includes(colNumber)) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "228B22" },
-              };
-              cell.font = { color: { argb: "FF0000" } };
-            } else if ([14, 18].includes(colNumber)) {
-              cell.fill = {
-                type: "pattern",
-                pattern: "solid",
-                fgColor: { argb: "228B22" },
-              };
-              cell.font = { color: { argb: "0000FF" } };
-            }
-          });
+  cell.font = {
+    bold: true,
+    size: 11,
+    color: { argb: style?.fontColor || "000000" },
+  };
 
-          rowIndex++;
-        });
+  cell.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: style?.bgColor || "228B22" }, // ✅ აქ სწორად
+  };
+  });
+
+  rowIndex++;
+});
+        // room.structures.forEach((s) => {
+        //   const newRow = sheet.addRow([
+        //     null,
+        //     null,
+        //     s.type,
+        //     s.length,
+        //     s.height,
+        //     s.quantity,
+        //     s.i27,
+        //     s.j27,
+        //     s.k27,
+        //     s.L27,
+        //     s.M27,
+        //     s.N27,
+        //     s.O27,
+        //     s.P27,
+        //     s.q27,
+        //     s.r27,
+        //     s.s27,
+        //     s.t27,
+        //     s.sunnyLabel, // ყვითელი ბგ
+        //     s.v27,
+        //     s.w27,
+        //     s.x27, // ლურჯი ტექსტი მწვანე ბგ
+        //     s.y27,
+        //     s.z27, // ყვითი ბგ
+        //     s.aa27,
+        //     s.ab27,
+        //     s.ac27, // ლურჯი ტექსტი მწვანე ბგ
+        //     s.ad27,
+        //     s.Mm27, // ყვითელი ბგ
+        //     s.af27, // ლურჯი ტექსტი მწვანე ბგ
+        //     s.ag27,
+        //     // s.qWinter,
+        //     // s.qSummer,
+        //     // s.result,
+        //   ]);
+
+        //   // Apply cell styles
+        //   newRow.eachCell((cell, colNumber) => {
+        //     cell.alignment = { vertical: "middle", horizontal: "center" };
+        //     cell.border = {
+        //       top: { style: "thin" },
+        //       left: { style: "thin" },
+        //       bottom: { style: "thin" },
+        //       right: { style: "thin" },
+        //     };
+
+        //     if ([3, 4, 5, 6].includes(colNumber)) {
+        //       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFF99" } };
+        //       cell.font = { color: { argb: "000000" } };
+        //     } else if ([7].includes(colNumber)) {
+        //       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFF" } };
+        //     } else if ([8, 9, 12, 13, 15, 16].includes(colNumber)) {
+        //       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "228B22" } };
+        //       cell.font = { color: { argb: "000000" } };
+        //     } else if ([11, 17].includes(colNumber)) {
+        //       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "228B22" } };
+        //       cell.font = { color: { argb: "FF0000" } };
+        //     } else if ([14, 18].includes(colNumber)) {
+        //       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "228B22" } };
+        //       cell.font = { color: { argb: "0000FF" } };
+        //     }
+        //   });
+
+        //   // 🔥 აქ უნდა გაიზარდოს rowIndex სტრუქტურისთვის!
+        //   rowIndex++;
+        // });
       });
     });
   });
 
-  // სვეტების სიგანეები
+  // Column widths
   sheet.columns = [
     { width: 12 }, // ბინა
     { width: 18 }, // ოთახი
@@ -259,6 +301,7 @@ export const exportHVACExcel = async (hvacItems) => {
     { width: 14 },
   ];
 
+  // Save the file
   const buffer = await workbook.xlsx.writeBuffer();
   saveAs(new Blob([buffer]), "HVAC_Styled.xlsx");
 };

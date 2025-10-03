@@ -83,7 +83,7 @@ export const StructureForm = ({
 
       const t27 = I27 * (D27 || 0) * (selected?.P27 || 0);
 
-      let x27, af27, ac27,priort;
+      let x27, af27, ac27,priort, w27,y27,aa27,ab27,ad27;
       // // ვამოწმებთ, უკვე არსებობს თუ არა ვიტრაჟი ოთახში
       const PRIORITY_TYPES = ["ვიტრაჟი", "ფანჯარა", "მინის კარი"];
 
@@ -113,13 +113,20 @@ const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
         x27 = 0.4 * (v27 || 0) * I27;
         ac27 = 120 * (z27 || 0);
         af27 = Mm27 * 11;
-        priort="პრიორიტეტი!"
+        priort="პრიორიტეტი!";
+        w27 = 0.4;
+        y27 = "ადამიანი";
+        aa27= 120;
+        ab27=1;
+        ad27=11;
       } 
       else {
         x27 = 1;
         af27 = 1;
         ac27 = 1;
       }
+       const ag27 = af27 + ac27 + x27 + t27;
+
       const fullStructure = {
         ...form,
         i27: I27,
@@ -137,22 +144,29 @@ const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
         r27: selected?.r27 ?? null,
         //
 
+        sunnyLabel, //U27
         v27,
-        sunnyLabel,
+        w27,
+        x27,
+        y27,
         z27,
-        Mm27, // m² ყოველთვის
+        aa27,
+        ab27,
+        ac27,
+        ad27,
+        Mm27, // m² ყოველთვის ae27
+        af27,
+        ag27,
         //
         // ახალი ველები
         s27,
         t27,
-        x27,
-        af27,
-        ac27,
         priort,
         Temp: currentRoom?.Temp || "",
       };
 
       onAddStructure(fullStructure);
+      console.log(fullStructure);
 
       setForm({
         roomtemp: "",
