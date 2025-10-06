@@ -169,16 +169,34 @@ export const exportHVACExcel = async (hvacItems) => {
         // Structures
 
         headerRow.height = 100;
+         const sumS27 = room.structures.reduce((sum, s) => {
+            const s27 = s.s27;
+             return sum + s27;
+             }, 0);
+
+           const sumS = sumS27 / 1000;
+          const sumAg27 = room.structures.reduce((sum, s) => {
+
+
+         const ag27 = s.ag27;
+
+         return sum + ag27;
+          }, 0);
+         const sumG = sumAg27 / 1000;
         room.structures.forEach((s) => {
           const structureTitles = [
             null,
             null,
-            { text: s.type, bgColor: "FFFF00" }, // <- აქვე შეგიძლია ჩასვა მნიშვნელობა
-            { text: s.length, bgColor: "FFFF00" },
-            { text: s.height, bgColor: "FFFF00" },
-            { text: s.quantity, bgColor: "FFFF00" },
-            { text: s.i27 },
-            { text: s.j27 },
+            { text: s.type, bgColor: "FFFF00" }, 
+            {
+              text: s.length || " ",
+              bgColor: "FFFF00",},
+            { text: s.height || " ", bgColor: "FFFF00" },
+            { text: s.quantity || " ", bgColor: "FFFF00" },
+{
+  text: s.i27 ? s.i27 : s.Mm27,
+  bgColor: s.i27 ? "FFFFFFFF" : "FFFF00"
+},            { text: s.j27 },
             { text: s.k27, fontColor: "FF0000" },
             { text: s.L27, fontColor: "FF0000" },
             { text: s.M27, fontColor: "FF0000" },
@@ -189,19 +207,22 @@ export const exportHVACExcel = async (hvacItems) => {
             { text: s.r27, fontColor: "FF0000" },
             { text: s.s27, fontColor: "FF0000" },
             { text: s.t27, fontColor: "0000FF" },
-            { text: s.sunnyLabel, bgColor: "FFFF00" },
-            { text: s.v27 },
-            { text: s.w27 },
-            { text: s.x27, fontColor: "0000FF" },
-            { text: s.y27 },
-            { text: s.z27, bgColor: "FFFF00" },
-            { text: s.aa27 },
-            { text: s.ab27 },
-            { text: s.ac27, fontColor: "0000FF" },
-            { text: s.ad27 },
-            { text: s.Mm27, bgColor: "FFFF00" },
-            { text: s.af27, fontColor: "0000FF" },
+          s.x27 === 0 ?null :  { text: s.sunnyLabel, bgColor: "FFFF00" },
+           s.x27 === 0 ?null :    { text: s.v27 },
+            s.x27 === 0 ?null :   { text: s.w27 },
+           s.x27 === 0 ?null :    { text: s.x27, fontColor: "0000FF" },
+           s.x27 === 0 ?null :    { text: s.y27 },
+           s.x27 === 0 ?null :    { text: s.z27, bgColor: "FFFF00" },
+           s.x27 === 0 ?null :    { text: s.aa27 },
+           s.x27 === 0 ?null :    { text: s.ab27 },
+            s.x27 === 0 ?null :   { text: s.ac27, fontColor: "0000FF" },
+            s.x27 === 0 ?null :   { text: s.ad27 },
+            s.x27 === 0 ?null :   { text: s.Mm27, bgColor: "FFFF00" },
+            s.x27 === 0 ?null :   { text: s.af27, fontColor: "0000FF" },
+            //
             { text: s.ag27 },
+            {text: sumS.toFixed(2), fontColor: "FF0000"  },
+            {text: sumG.toFixed(2),fontColor: "0000FF" }
           ];
 
           // 🟢 სტრუქტურის რიგი
@@ -334,6 +355,8 @@ export const exportHVACExcel = async (hvacItems) => {
   ];
 
   // Save the file
-  const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "HVAC_Styled.xlsx");
-};
+const buffer = await workbook.xlsx.writeBuffer();
+const blob = new Blob([buffer], {
+  type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+});
+saveAs(blob, "HVAC_Styled.xlsx");};

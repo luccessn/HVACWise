@@ -36,7 +36,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
     //   ac27 = 1;
     // }
 
-    const ag27 = s.af27 + s.ac27 + s.x27 + s.t27;
+    const ag27 = s.ag27;
 
     return sum + ag27;
   }, 0);

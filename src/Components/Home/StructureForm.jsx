@@ -105,9 +105,9 @@ const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
 
 
       if (form.type === "იატაკი" || form.type === "ჭერი") {
-        x27 = 1;
-        af27 = 1;
-        ac27 = 1;
+        x27 = 0;
+        af27 = 0;
+        ac27 = 0;
       } else if (isFirstPriority) {
         // პირველი type
         x27 = 0.4 * (v27 || 0) * I27;
@@ -121,9 +121,9 @@ const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
         ad27=11;
       } 
       else {
-        x27 = 1;
-        af27 = 1;
-        ac27 = 1;
+        x27 = 0;
+        af27 = 0;
+        ac27 = 0;
       }
        const ag27 = af27 + ac27 + x27 + t27;
 

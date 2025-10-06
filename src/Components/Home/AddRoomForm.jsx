@@ -47,20 +47,22 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
       const ceilingType = structureTypes.find((s) => s.label === "ჭერი");
       const selectedsunny = sunTypes.find((t) => t.label === rmForm.sunny);
       const z27 = Number(rmForm.humans);
-      const I27 = Number(rmForm.m2);
-
+      // const I27 = Number(rmForm.m2);
+      const Mm27 = Number(rmForm.m2);
+      
       //გაომთვლა
       const s27flor =
-        I27 *
-        (floorType?.j27 || 0) *
-        (floorType?.M27 || 0) *
-        (floorType?.q27 || 0) *
-        (floorType?.r27 || 0);
-
-      const t27flor = I27 * (floorType?.j27 || 0) * (floorType?.P27 || 0);
+      Mm27 *
+      (floorType?.j27 || 0) *
+      (floorType?.M27 || 0) *
+      (floorType?.q27 || 0) *
+      (floorType?.r27 || 0);
+      
+      const t27flor = Mm27 * (floorType?.j27 || 0) * (floorType?.P27 || 0);
+      const ag27flor = t27flor;
       const floor = {
         type: "იატაკი",
-        i27: I27,
+        // i27: I27,
         j27: floorType?.j27 ?? null,
 
         k27: floorType?.k27 ?? null,
@@ -77,25 +79,27 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
         sunnyLabel: selectedsunny?.label || "უცნობი",
 
         z27,
-        Mm27: Number(rmForm.m2),
+        Mm27: Mm27,
         s27: s27flor,
         t27: t27flor,
-
-        x27: 1,
+        ag27:ag27flor,
+        x27: 0,
         af27: 1,
         ac27: 1,
       };
       const s27ceil =
-        I27 *
+        Mm27 *
         (ceilingType?.j27 || 0) *
         (ceilingType?.M27 || 0) *
         (ceilingType?.q27 || 0) *
         (ceilingType?.r27 || 0);
 
-      const t27ceil = I27 * (ceilingType?.j27 || 0) * (ceilingType?.P27 || 0);
+      const t27ceil = Mm27 * (ceilingType?.j27 || 0) * (ceilingType?.P27 || 0);
+      const ag27ceil = t27ceil;
+
       const ceiling = {
         type: "ჭერი",
-        i27: I27,
+        // i27: I27,
         j27: ceilingType?.j27 ?? null,
 
         k27: ceilingType?.k27 ?? null,
@@ -112,11 +116,12 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
         sunnyLabel: selectedsunny?.label || "უცნობი",
 
         z27,
-        Mm27: Number(rmForm.m2),
+        Mm27: Mm27,
         s27: s27ceil,
         t27: t27ceil,
+        ag27:ag27ceil,
 
-        x27: 1,
+        x27: 0,
         af27: 1,
         ac27: 1,
 
