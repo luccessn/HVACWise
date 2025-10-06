@@ -166,7 +166,6 @@ const isFirstPriority = isPriorityType && otherPriorityStructures.length === 0;
       };
 
       onAddStructure(fullStructure);
-      console.log(fullStructure);
 
       setForm({
         roomtemp: "",
