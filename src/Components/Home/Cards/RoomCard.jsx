@@ -30,8 +30,6 @@ export const RoomCard = ({ apt }) => {
             id: Date.now(),
             name: room.name.trim(),
             m2: room.m2,
-            sunny: room.sunny, // ← აქ უნდა იყოს ეს სახელები
-            sunnyLabel: room.sunnyLabel,
             humans: room.humans,
             structures: room.structures,
             Temp: room.Temp,

@@ -3,23 +3,12 @@ import React, { useState } from "react";
 import { structureTypes } from "../../Constants/structureTypes";
 import { useAppContext } from "../../Context/AppContextProvider";
 
-const sunTypes = [
-  { label: "აღმ", v27: 570 },
-  { label: "დას", v27: 570 },
-  { label: "სამ", v27: 280 },
-  { label: "ჩრდ", v27: 100 },
-  { label: "სა-აღ", v27: 450 },
-  { label: "სა-და", v27: 450 },
-  { label: "ჩრ-აღ", v27: 430 },
-  { label: "ჩრ-და", v27: 430 },
-];
 
 export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
   const { state } = useAppContext();
   const [rmForm, setrmForm] = useState({
     name: "",
     m2: "",
-    sunny: "",
     humans: "",
     roomtemp: "",
   });
@@ -33,7 +22,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
     if (
       !rmForm.name ||
       !rmForm.m2 ||
-      !rmForm.sunny ||
       !rmForm.humans ||
       !rmForm.roomtemp
     ) {
@@ -45,7 +33,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
       setroomError("");
       const floorType = structureTypes.find((s) => s.label === "იატაკი");
       const ceilingType = structureTypes.find((s) => s.label === "ჭერი");
-      const selectedsunny = sunTypes.find((t) => t.label === rmForm.sunny);
       const z27 = Number(rmForm.humans);
       // const I27 = Number(rmForm.m2);
       const Mm27 = Number(rmForm.m2);
@@ -75,8 +62,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
 
         q27: floorType?.q27 ?? null,
         r27: floorType?.r27 ?? null,
-        v27: selectedsunny?.v27 ?? null,
-        sunnyLabel: selectedsunny?.label || "უცნობი",
 
         z27,
         Mm27: Mm27,
@@ -112,8 +97,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
 
         q27: ceilingType?.q27 ?? null,
         r27: ceilingType?.r27 ?? null,
-        v27: selectedsunny?.v27 ?? null,
-        sunnyLabel: selectedsunny?.label || "უცნობი",
 
         z27,
         Mm27: Mm27,
@@ -131,8 +114,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
       const newRoom = {
         name: rmForm.name.trim(),
         m2: Number(rmForm.m2),
-        sunny: Number(selectedsunny?.v27),
-        sunnyLabel: selectedsunny?.label || "უცნობი",
         humans: Number(rmForm.humans),
         structures: [floor, ceiling],
         Temp: rmForm.roomtemp,
@@ -143,7 +124,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
       setrmForm({
         name: "",
         m2: "",
-        sunny: "",
         humans: "",
         roomtemp: "",
       });
@@ -290,26 +270,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
         >
           ოთახის სახელი უკვე გამოყენებულია!
         </p> */}
-      </div>
-      <div className="flex flex-col">
-        <div
-          className={`rounded-md transition-colors duration-100 ease-out ${"bg-[#222222]"}`}
-        >
-          <select
-            name="sunny"
-            value={rmForm.sunny}
-            onChange={ChangeInput}
-            // onBlur={() => setTouched(true)}
-            className={`w-[150px] h-[50px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
-          >
-            <option value="">კონსტრუქციის ორიენტაცია</option>
-            {sunTypes.map((t) => (
-              <option key={t.label} value={t.label}>
-                {t.label}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
       <div className="flex flex-col">
         <div

@@ -35,8 +35,8 @@ export const Reducer = (state, action) => {
                     {
                       ...payload.room,
                       m2: Number(payload.room.m2) || 0, // ✅ ყოველთვის ჩასვით
-                      sunny: Number(payload.room.sunny) || 0,
-                      sunnyLabel: payload.room.sunnyLabel || "",
+                      // sunny: Number(payload.room.sunny) || 0,
+                      // sunnyLabel: payload.room.sunnyLabel || "",
                       Temp: payload.room.Temp || "",
 
                       humans: Number(payload.room.humans) || 0,

@@ -226,10 +226,10 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
           ჯამური ფართობი:{" "}
           {room.structures.reduce((sum, s) => sum + Number(s.i27 || 0), 0)} მ²
         </div> */}
-        <h5 className="font-semibold text-lg text-blue-600">
+        <h5 className="font-semibold text-lg text-red-600">
           სითბოს დანაკარგი (kW): {sumS.toFixed(2)}
         </h5>
-        <h5 className="font-semibold text-lg text-red-600">
+        <h5 className="font-semibold text-lg text-blue-600">
           სითბოს შემოსავალი (kW): {sumG.toFixed(2)}
         </h5>
       </div>
