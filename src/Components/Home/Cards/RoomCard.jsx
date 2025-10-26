@@ -51,7 +51,6 @@ export const RoomCard = ({ apt }) => {
                   className="space-y-4 mt-4 bg-[#b1c0d6] p-4 py-8 border rounded"
                 >
                   {/* <h3 className="font-semibold mb-2">{room.name}</h3> */}
-
                   {/* სტრუქტურის დამატება/რედაქტირება */}
                   <StructureForm
                     apartmentId={apt.id} // ✅ გადასცემ ბინას ID-ს
@@ -82,41 +81,40 @@ export const RoomCard = ({ apt }) => {
                     }
                     cancelEdit={() => setEditingStructure(null)}
                   />
-
-                  {room.structures.length > 0 && (
-                    <>
-                      <CalctCards
-                        room={room}
-                        setEditingStructure={setEditingStructure}
-                        apt={apt}
-                      />
-                      {/* <button className="text-red-600 mt-2">ოთახის წაშლა</button> */}
-                      <button
-                        onClick={() => {
-                          // if (confirm("ნამდვილად გსურს ოთახის წაშლა?")) {
-                          //   dispatch(removeRoomFromApartmenst(apt.id, room.id));
-                          // }
-                          dispatch(removeRoomFromApartmenst(apt.id, room.id));
-                        }}
-                        className="inline-flex  items-center mt-2 px-4 py-2 bg-red-600 transition ease-in-out duration-300 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:scale-105"
+                  {/* {room.structures.length > 0 && ( */}
+                  <>
+                    <CalctCards
+                      room={room}
+                      setEditingStructure={setEditingStructure}
+                      apt={apt}
+                    />
+                    {/* <button className="text-red-600 mt-2">ოთახის წაშლა</button> */}
+                    <button
+                      onClick={() => {
+                        // if (confirm("ნამდვილად გსურს ოთახის წაშლა?")) {
+                        //   dispatch(removeRoomFromApartmenst(apt.id, room.id));
+                        // }
+                        dispatch(removeRoomFromApartmenst(apt.id, room.id));
+                      }}
+                      className="inline-flex  items-center mt-2 px-4 py-2 bg-red-600 transition ease-in-out duration-300 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:scale-105"
+                    >
+                      <svg
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="h-5 w-5 mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="h-5 w-5 mr-2"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            strokeWidth="2"
-                            strokeLinejoin="round"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        ოთახის წაშლა
-                      </button>
-                      {/* <ul className="pl-5 list-disc text-sm mt-2">
+                        <path
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          strokeWidth="2"
+                          strokeLinejoin="round"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      ოთახის წაშლა
+                    </button>
+                    {/* <ul className="pl-5 list-disc text-sm mt-2">
                       {room.structures.map((s, i) => (
                         <li key={i}>
                           {s.type} – {s.length}მ x {s.height}მ = {s.i27} მ² |
@@ -158,8 +156,8 @@ export const RoomCard = ({ apt }) => {
                     </ul>
 
                     {/* ✅ i27 ჯამი */}
-                    </>
-                  )}
+                  </>
+                  {/* )} */}
                 </div>
               </Panel>
             ))}

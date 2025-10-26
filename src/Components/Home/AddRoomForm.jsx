@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from "react";
-import { structureTypes } from "../../Constants/structureTypes";
+// import { structureTypes } from "../../Constants/structureTypes";
 import { useAppContext } from "../../Context/AppContextProvider";
-
 
 export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
   const { state } = useAppContext();
@@ -19,103 +18,98 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
   const allRoomNames =
     currentApart?.rooms?.map((room) => room.name.toLowerCase().trim()) ?? [];
   const handleAdd = () => {
-    if (
-      !rmForm.name ||
-      !rmForm.m2 ||
-      !rmForm.humans ||
-      !rmForm.roomtemp
-    ) {
+    if (!rmForm.name || !rmForm.m2 || !rmForm.humans || !rmForm.roomtemp) {
       setroomError("შეავსეთ მოცემული ველები!");
       return;
     } else if (allRoomNames.includes(rmForm.name)) {
       setroomError("ოთახის ეს სახელი უკვე გამოყენებულია!");
     } else {
       setroomError("");
-      const floorType = structureTypes.find((s) => s.label === "იატაკი");
-      const ceilingType = structureTypes.find((s) => s.label === "ჭერი");
-      const z27 = Number(rmForm.humans);
-      // const I27 = Number(rmForm.m2);
-      const Mm27 = Number(rmForm.m2);
-      
+      // const floorType = structureTypes.find((s) => s.label === "იატაკი");
+      // const ceilingType = structureTypes.find((s) => s.label === "ჭერი");
+      // const z27 = Number(rmForm.humans);
+      // // const I27 = Number(rmForm.m2);
+      // const Mm27 = Number(rmForm.m2);
+
       //გაომთვლა
-      const s27flor =
-      Mm27 *
-      (floorType?.j27 || 0) *
-      (floorType?.M27 || 0) *
-      (floorType?.q27 || 0) *
-      (floorType?.r27 || 0);
-      
-      const t27flor = Mm27 * (floorType?.j27 || 0) * (floorType?.P27 || 0);
-      const ag27flor = t27flor;
-      const floor = {
-        type: "იატაკი",
-        // i27: I27,
-        j27: floorType?.j27 ?? null,
+      // const s27flor =
+      //   Mm27 *
+      //   (floorType?.j27 || 0) *
+      //   (floorType?.M27 || 0) *
+      //   (floorType?.q27 || 0) *
+      //   (floorType?.r27 || 0);
 
-        k27: floorType?.k27 ?? null,
-        L27: floorType?.k27 ?? null,
-        M27: floorType?.M27 ?? null,
+      // const t27flor = Mm27 * (floorType?.j27 || 0) * (floorType?.P27 || 0);
+      // const ag27flor = t27flor;
+      // const floor = {
+      //   type: "იატაკი",
+      //   // i27: I27,
+      //   j27: floorType?.j27 ?? null,
 
-        N27: floorType?.N27 ?? null,
-        O27: floorType?.O27 ?? null,
-        P27: floorType?.P27 ?? null,
+      //   k27: floorType?.k27 ?? null,
+      //   L27: floorType?.k27 ?? null,
+      //   M27: floorType?.M27 ?? null,
 
-        q27: floorType?.q27 ?? null,
-        r27: floorType?.r27 ?? null,
+      //   N27: floorType?.N27 ?? null,
+      //   O27: floorType?.O27 ?? null,
+      //   P27: floorType?.P27 ?? null,
 
-        z27,
-        Mm27: Mm27,
-        s27: s27flor,
-        t27: t27flor,
-        ag27:ag27flor,
-        x27: 0,
-        af27: 1,
-        ac27: 1,
-      };
-      const s27ceil =
-        Mm27 *
-        (ceilingType?.j27 || 0) *
-        (ceilingType?.M27 || 0) *
-        (ceilingType?.q27 || 0) *
-        (ceilingType?.r27 || 0);
+      //   q27: floorType?.q27 ?? null,
+      //   r27: floorType?.r27 ?? null,
 
-      const t27ceil = Mm27 * (ceilingType?.j27 || 0) * (ceilingType?.P27 || 0);
-      const ag27ceil = t27ceil;
+      //   z27,
+      //   Mm27: Mm27,
+      //   s27: s27flor,
+      //   t27: t27flor,
+      //   ag27: ag27flor,
+      //   x27: 0,
+      //   af27: 1,
+      //   ac27: 1,
+      // };
+      // const s27ceil =
+      //   Mm27 *
+      //   (ceilingType?.j27 || 0) *
+      //   (ceilingType?.M27 || 0) *
+      //   (ceilingType?.q27 || 0) *
+      //   (ceilingType?.r27 || 0);
 
-      const ceiling = {
-        type: "ჭერი",
-        // i27: I27,
-        j27: ceilingType?.j27 ?? null,
+      // const t27ceil = Mm27 * (ceilingType?.j27 || 0) * (ceilingType?.P27 || 0);
+      // const ag27ceil = t27ceil;
 
-        k27: ceilingType?.k27 ?? null,
-        L27: ceilingType?.k27 ?? null,
-        M27: ceilingType?.M27 ?? null,
+      // const ceiling = {
+      //   type: "ჭერი",
+      //   // i27: I27,
+      //   j27: ceilingType?.j27 ?? null,
 
-        N27: ceilingType?.N27 ?? null,
-        O27: ceilingType?.O27 ?? null,
-        P27: ceilingType?.P27 ?? null,
+      //   k27: ceilingType?.k27 ?? null,
+      //   L27: ceilingType?.k27 ?? null,
+      //   M27: ceilingType?.M27 ?? null,
 
-        q27: ceilingType?.q27 ?? null,
-        r27: ceilingType?.r27 ?? null,
+      //   N27: ceilingType?.N27 ?? null,
+      //   O27: ceilingType?.O27 ?? null,
+      //   P27: ceilingType?.P27 ?? null,
 
-        z27,
-        Mm27: Mm27,
-        s27: s27ceil,
-        t27: t27ceil,
-        ag27:ag27ceil,
+      //   q27: ceilingType?.q27 ?? null,
+      //   r27: ceilingType?.r27 ?? null,
 
-        x27: 0,
-        af27: 1,
-        ac27: 1,
+      //   z27,
+      //   Mm27: Mm27,
+      //   s27: s27ceil,
+      //   t27: t27ceil,
+      //   ag27: ag27ceil,
 
-        Temp: rmForm.roomtemp,
-      };
+      //   x27: 0,
+      //   af27: 1,
+      //   ac27: 1,
+
+      //   Temp: rmForm.roomtemp,
+      // };
 
       const newRoom = {
         name: rmForm.name.trim(),
         m2: Number(rmForm.m2),
         humans: Number(rmForm.humans),
-        structures: [floor, ceiling],
+        // structures: [floor, ceiling],
         Temp: rmForm.roomtemp,
       };
 

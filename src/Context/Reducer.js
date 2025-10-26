@@ -60,7 +60,10 @@ export const Reducer = (state, action) => {
                     room.id === payload.roomId
                       ? {
                           ...room,
-                          structures: [...room.structures, payload.structure],
+                          structures: [
+                            ...(room.structures || []),
+                            payload.structure,
+                          ],
                         }
                       : room
                   ),

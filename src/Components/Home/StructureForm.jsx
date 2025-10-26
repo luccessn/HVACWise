@@ -29,7 +29,7 @@ export const StructureForm = ({
     ?.rooms.find((room) => room.id === roomId);
 
   const PRIORITY_TYPES = ["ვიტრაჟი", "ფანჯარა"];
-
+  const FLOR_TYPES = ["იატაკი გრ", "იატაკი", "მინის ჭერი", "ჭერი"];
   const [form, setForm] = useState({
     type: "",
     length: "",
@@ -49,7 +49,16 @@ export const StructureForm = ({
   }, [currentRoom]);
 
   const handleAdd = () => {
-    if (!form.type || !form.length || !form.height || !form.quantity) {
+    // if () {
+    //   setErStructure(true);
+    //   return;
+    // }
+    if (FLOR_TYPES.includes(form.type)) {
+      if (!form.m2) {
+        setErStructure(true);
+        return;
+      }
+    } else if (!form.type || !form.length || !form.height || !form.quantity) {
       setErStructure(true);
       return;
     }
@@ -65,23 +74,28 @@ export const StructureForm = ({
     const F27 = Number(form.length);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
-    const I27 = F27 * G27 * H27;
+    let I27 = 0;
+    if (FLOR_TYPES.includes(form.type)) {
+      I27 = Number(form.m2);
+    } else {
+      I27 = F27 * G27 * H27;
+    }
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
     const selectedsunny = sunTypes.find((t) => t.label === form.sunny) || {};
     const sunnyLabel = selectedsunny?.label || "უცნობი";
 
     const selected = structureTypes.find((t) => t.label === form.type);
-    const D27 = selected ? selected.j27 : 0;
+    const J27 = selected ? selected.j27 : 0;
 
     const s27 =
       I27 *
-      (D27 || 0) *
+      (J27 || 0) *
       (selected?.M27 || 0) *
       (selected?.q27 || 0) *
       (selected?.r27 || 0);
 
-    const t27 = I27 * (D27 || 0) * (selected?.P27 || 0);
+    const t27 = I27 * (J27 || 0) * (selected?.P27 || 0);
 
     let x27 = 0,
       af27 = 0,
@@ -94,11 +108,12 @@ export const StructureForm = ({
       ad27 = 0;
 
     // 👉 აქ ვცვლით ლოგიკას: PRIORITY_TYPES ყოველთვის ითვლება
-    if (form.type === "იატაკი" || form.type === "ჭერი") {
-      x27 = 0;
-      af27 = 0;
-      ac27 = 0;
-    } else if (PRIORITY_TYPES.includes(form.type)) {
+    // if (form.type === "იატაკი" || form.type === "ჭერი") {
+    //   x27 = 0;
+    //   af27 = 0;
+    //   ac27 = 0;
+    // } else
+    if (PRIORITY_TYPES.includes(form.type)) {
       // პრიორიტეტული ტიპი ყოველთვის ითვლება
       x27 = 0.4 * (selectedsunny.v27 || 0) * I27;
       ac27 = 120 * (z27 || 0);
@@ -109,6 +124,10 @@ export const StructureForm = ({
       aa27 = 120;
       ab27 = 1;
       ad27 = 11;
+    } else {
+      x27 = 0;
+      af27 = 0;
+      ac27 = 0;
     }
 
     const ag27 = af27 + ac27 + x27 + t27;
@@ -116,7 +135,7 @@ export const StructureForm = ({
     const fullStructure = {
       ...form,
       i27: I27,
-      j27: D27,
+      j27: J27,
       L27: selected?.k27 ?? null,
       k27: selected?.k27 ?? null,
       M27: selected?.M27 ?? null,
@@ -194,7 +213,8 @@ export const StructureForm = ({
               name="type"
               value={form.type}
               onChange={ChangeInput}
-              className="w-[180px] text-zinc-500 h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] border-[#222222]"
+              // className="w-[180px] text-zinc-500 h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] border-[#222222]"
+              className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             >
               <option value=""> სტრუქტურა</option>
               {structureTypes.map((t) => (
@@ -205,38 +225,55 @@ export const StructureForm = ({
             </select>
           </div>
         </div>
+        {FLOR_TYPES.includes(form.type) ? (
+          <div className="flex flex-col">
+            <div className="rounded-md bg-[#222222]">
+              <input
+                name="m2"
+                value={form.m2}
+                onChange={ChangeInput}
+                type="number"
+                placeholder="ფართობი (მ²)"
+                required
+                className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <input
+              name="length"
+              type="number"
+              placeholder="სიგრძე (მ)"
+              value={form.length}
+              onChange={ChangeInput}
+              className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            />
 
+            <input
+              name="height"
+              type="number"
+              placeholder="სიმაღლე (მ)"
+              value={form.height}
+              onChange={ChangeInput}
+              className={`w-[170px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            />
+
+            <select
+              name="quantity"
+              value={form.quantity}
+              onChange={ChangeInput}
+              className={`w-[90px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            >
+              {[1, 2, 3].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         {/* ზომები */}
-        <input
-          name="length"
-          type="number"
-          placeholder="სიგრძე (მ)"
-          value={form.length}
-          onChange={ChangeInput}
-          className="w-[150px] h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] text-zinc-500"
-        />
-
-        <input
-          name="height"
-          type="number"
-          placeholder="სიმაღლე (მ)"
-          value={form.height}
-          onChange={ChangeInput}
-          className="w-[170px] h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] text-zinc-500"
-        />
-
-        <select
-          name="quantity"
-          value={form.quantity}
-          onChange={ChangeInput}
-          className="w-[90px] h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] text-zinc-500"
-        >
-          {[1, 2, 3].map((num) => (
-            <option key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
 
         {/* 🌤 მხოლოდ ვიტრაჟისა და ფანჯრისას გამოვაჩინოთ */}
         {PRIORITY_TYPES.includes(form.type) && (

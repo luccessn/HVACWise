@@ -10,7 +10,6 @@ import { RetroGrid } from "./Components/UI/autocad";
 function App() {
   return (
     <div className="App relative   ">
-      {" "}
       {/* Background */}
       {/* <div className="fixed inset-0 bg-zinc-600 -z-10">
         {" "}
