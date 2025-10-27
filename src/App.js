@@ -10,9 +10,7 @@ import { useAppContext } from "./Context/AppContextProvider";
 // import Spline from "@splinetool/react-spline";
 function App() {
   /* eslint-disable prettier/prettier */
-  const { state } = useAppContext;
 
-  console.log(state);
   return (
     <div className="App relative   ">
       {/* Background */}
