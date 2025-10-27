@@ -4,14 +4,14 @@ import { structureTypes } from "../../Constants/structureTypes";
 import { useAppContext } from "../../Context/AppContextProvider";
 
 const sunTypes = [
-  { label: "აღმ", v27: 570 },
-  { label: "დას", v27: 570 },
-  { label: "სამ", v27: 280 },
-  { label: "ჩრდ", v27: 100 },
-  { label: "სა-აღ", v27: 450 },
-  { label: "სა-და", v27: 450 },
-  { label: "ჩრ-აღ", v27: 430 },
-  { label: "ჩრ-და", v27: 430 },
+  { label: "აღმ", v27: 560 }, //570
+  { label: "დას", v27: 110 }, //570
+  { label: "სამ", v27: 160 }, //280
+  { label: "ჩრდ", v27: 160 }, //100
+  { label: "სა-აღ", v27: 150 }, ///450
+  { label: "სა-და", v27: 440 }, // 450
+  { label: "ჩრ-აღ", v27: 430 }, //430
+  { label: "ჩრ-და", v27: 150 }, //430
 ];
 
 export const StructureForm = ({
@@ -82,16 +82,22 @@ export const StructureForm = ({
     }
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
+    const K27 = Number(currentRoom?.Temp);
+    const N27 = Number(currentRoom?.Temp);
     const selectedsunny = sunTypes.find((t) => t.label === form.sunny) || {};
     const sunnyLabel = selectedsunny?.label || "უცნობი";
 
     const selected = structureTypes.find((t) => t.label === form.type);
+    const L27 = Number(selected.L27);
+    const O27 = Number(selected?.O27);
+    const P27 = O27 - N27;
+    const M27 = K27 - L27;
     const J27 = selected ? selected.j27 : 0;
 
     const s27 =
       I27 *
       (J27 || 0) *
-      (selected?.M27 || 0) *
+      (M27 || 0) *
       (selected?.q27 || 0) *
       (selected?.r27 || 0);
 
@@ -117,13 +123,13 @@ export const StructureForm = ({
       // პრიორიტეტული ტიპი ყოველთვის ითვლება
       x27 = 0.4 * (selectedsunny.v27 || 0) * I27;
       ac27 = 120 * (z27 || 0);
-      af27 = Mm27 * 11;
+      af27 = Mm27 * 5;
       priort = "პრიორიტეტი!";
       w27 = 0.4;
       y27 = "ადამიანი";
       aa27 = 120;
       ab27 = 1;
-      ad27 = 11;
+      ad27 = 5; //11
     } else {
       x27 = 0;
       af27 = 0;
@@ -136,12 +142,12 @@ export const StructureForm = ({
       ...form,
       i27: I27,
       j27: J27,
-      L27: selected?.k27 ?? null,
-      k27: selected?.k27 ?? null,
-      M27: selected?.M27 ?? null,
-      N27: selected?.N27 ?? null,
-      O27: selected?.O27 ?? null,
-      P27: selected?.P27 ?? null,
+      L27: L27 ?? null,
+      k27: K27 ?? null,
+      M27: M27 ?? null,
+      N27: N27 ?? null,
+      O27: O27 ?? null,
+      P27: P27 ?? null,
       q27: selected?.q27 ?? null,
       r27: selected?.r27 ?? null,
       sunnyLabel,

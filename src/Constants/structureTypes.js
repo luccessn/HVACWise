@@ -1,16 +1,12 @@
-/* eslint-disable prettier/prettier */
 export const structureTypes = [
   {
     label: "გ.კ",
     j27: 0.8,
     L27: -8,
-    k27: 22,
     // get M27() {
     //   return this.k27 - this.L27;
     // },
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1,
@@ -19,11 +15,7 @@ export const structureTypes = [
     label: "ვიტრაჟი",
     j27: 2.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1.05,
@@ -32,11 +24,7 @@ export const structureTypes = [
     label: "მინის კარი",
     j27: 2.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1.5,
@@ -45,11 +33,7 @@ export const structureTypes = [
     label: "რკინის კარი",
     j27: 5.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1.5,
@@ -58,11 +42,7 @@ export const structureTypes = [
     label: "გკ, ბლოკის",
     j27: 1.2,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1,
@@ -71,11 +51,7 @@ export const structureTypes = [
     label: "ფანჯარა",
     j27: 2.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1.05,
@@ -84,11 +60,7 @@ export const structureTypes = [
     label: "შ.კ",
     j27: 2.0,
     L27: 0,
-    k27: 22,
-
-    M27: 22, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 30,
     P27: 18,
     q27: 1,
     r27: 1,
@@ -97,11 +69,7 @@ export const structureTypes = [
     label: "შიდა კარი",
     j27: 5.0,
     L27: 0,
-    k27: 22,
-
-    M27: 22, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 30,
     P27: 18,
     q27: 1,
     r27: 1.5,
@@ -110,11 +78,8 @@ export const structureTypes = [
     label: "გ.კ. გრუნტში",
     j27: 0.35,
     L27: 0,
-    k27: 22,
-
-    M27: 22, // k27-l27
     N27: 22,
-    O27: 40,
+    O27: 30,
     P27: 18,
     q27: 1,
     r27: 1,
@@ -123,11 +88,7 @@ export const structureTypes = [
     label: "იატაკი გრ",
     j27: 0.35,
     L27: 0,
-    k27: 22,
-
-    M27: 22, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 30,
     P27: 18,
     q27: 1,
     r27: 1,
@@ -136,11 +97,7 @@ export const structureTypes = [
     label: "იატაკი",
     j27: 1.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1,
     r27: 1,
@@ -149,11 +106,7 @@ export const structureTypes = [
     label: "მინის ჭერი",
     j27: 3.0,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1.2,
     r27: 1,
@@ -162,11 +115,7 @@ export const structureTypes = [
     label: "ჭერი",
     j27: 0.6,
     L27: -8,
-    k27: 22,
-
-    M27: 30, // k27-l27
-    N27: 22,
-    O27: 40,
+    O27: 38,
     P27: 18,
     q27: 1,
     r27: 1,
