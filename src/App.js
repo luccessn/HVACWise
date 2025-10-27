@@ -4,7 +4,6 @@ import React from "react";
 import { Home } from "./Pages/Home/Home";
 import { BackgroundLines } from "./Components/UI/background-lines";
 import { RetroGrid } from "./Components/UI/autocad";
-import { useAppContext } from "./Context/AppContextProvider";
 // import RippleGrid from "./Components/UI/RiplleGrid";
 // import Squares from "./Components/UI/Squares";
 // import Spline from "@splinetool/react-spline";
