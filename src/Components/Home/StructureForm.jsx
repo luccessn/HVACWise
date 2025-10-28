@@ -32,7 +32,7 @@ export const StructureForm = ({
   const FLOR_TYPES = ["იატაკი გრ", "იატაკი", "მინის ჭერი", "ჭერი"];
   const [form, setForm] = useState({
     type: "",
-    length: "",
+    width: "",
     height: "",
     quantity: "1",
     sunny: "",
@@ -58,7 +58,7 @@ export const StructureForm = ({
         setErStructure(true);
         return;
       }
-    } else if (!form.type || !form.length || !form.height || !form.quantity) {
+    } else if (!form.type || !form.width || !form.height || !form.quantity) {
       setErStructure(true);
       return;
     }
@@ -71,7 +71,7 @@ export const StructureForm = ({
 
     setErStructure(false);
 
-    const F27 = Number(form.length);
+    const F27 = Number(form.width);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
     let I27 = 0;
@@ -173,7 +173,7 @@ export const StructureForm = ({
 
     setForm({
       type: "",
-      length: "",
+      width: "",
       height: "",
       quantity: "1",
       sunny: "",
@@ -190,7 +190,7 @@ export const StructureForm = ({
       setForm({
         roomtemp: editingStructure.roomtemp ?? "",
         type: editingStructure.type ?? "",
-        length: editingStructure.length ?? "",
+        width: editingStructure.width ?? "",
         height: editingStructure.height ?? "",
         quantity: editingStructure.quantity ?? "1",
         sunny: editingStructure.sunny ?? "",
@@ -202,7 +202,7 @@ export const StructureForm = ({
     cancelEdit();
     setForm({
       type: "",
-      length: "",
+      width: "",
       height: "",
       quantity: "1",
       sunny: "",
@@ -248,10 +248,10 @@ export const StructureForm = ({
         ) : (
           <div className="flex gap-2">
             <input
-              name="length"
+              name="width"
               type="number"
-              placeholder="სიგრძე (მ)"
-              value={form.length}
+              placeholder="სიგანე (მ)"
+              value={form.width}
               onChange={ChangeInput}
               className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             />

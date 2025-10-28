@@ -54,7 +54,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
                   s.type === "ჭერი" ||
                   s.type === "მინის ჭერი"
                     ? "მთლიანი კვადრატის არეალით"
-                    : `სიგრძე: ${s.length}მ x სიმაღლე: ${s.height}მ`}
+                    : `სიგანე: ${s.width}მ x სიმაღლე: ${s.height}მ`}
                 </div>
 
                 {s.priort ? (
