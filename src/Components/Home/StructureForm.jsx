@@ -250,7 +250,7 @@ export const StructureForm = ({
             <input
               name="width"
               type="number"
-              placeholder="სიგანე (მ)"
+              placeholder="სიგრძე (მ)"
               value={form.width}
               onChange={ChangeInput}
               className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
