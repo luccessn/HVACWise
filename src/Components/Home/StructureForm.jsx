@@ -13,7 +13,7 @@ const sunTypes = [
   { label: "ჩრ-აღ", v27: 430 }, //430
   { label: "ჩრ-და", v27: 150 }, //430
 ];
-
+//befr wnds
 export const StructureForm = ({
   apartmentId,
   roomId,
