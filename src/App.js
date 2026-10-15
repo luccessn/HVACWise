@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable import/no-unresolved */
 import "./App.css";
 import React from "react";
@@ -11,7 +12,7 @@ function App() {
   /* eslint-disable prettier/prettier */
 
   return (
-    <div className="App relative   ">
+    <div className="relative min-h-screen overflow-hidden bg-white">
       {/* Background */}
       {/* <div className="fixed inset-0 bg-zinc-600 -z-10">
         {" "}

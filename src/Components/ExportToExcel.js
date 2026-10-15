@@ -13,9 +13,9 @@ export const exportHVACExcel = async (hvacItems) => {
     { text: "ბინა" },
     { text: "ოთახი" },
     { text: "სტრუქტურა" },
-    { text: "სიგრძე", bgColor: "FFFF00" },
-    { text: "სიმაღლე", bgColor: "FFFF00" },
-    { text: "რაოდენობა", bgColor: "FFFF00" },
+    { text: "სიგრძე" }, //bgColor: "FFFF00"
+    { text: "სიმაღლე" }, // bgColor: "FFFF00"
+    { text: "რაოდენობა" }, // bgColor: "FFFF00"
     { text: "ფართი  m²" },
     { text: "კონსტრუქციის თბოგადაცემის კოეფიციენტი k , wat/m²C" },
     { text: "შიდა", fontColor: "FF0000" },
@@ -33,7 +33,7 @@ export const exportHVACExcel = async (hvacItems) => {
     { text: "შემასწორებელი კოეფიციენტი K1" },
     { text: "შემოსული სითბო w." },
     { text: "წყაროს დასახელება" },
-    { text: "მათი რაოედენობა", bgColor: "FFFF00" }, // ყვითელი ფონი
+    { text: "მათი რაოედენობა" }, // ყვითელი ფონი bgColor: "FFFF00"
     { text: "ერთეულზე მოსული სითბო WAT" },
     { text: "შემასწორებელი კოეფიციენტი K1" },
     { text: "ჯამი WAT" },
@@ -114,7 +114,6 @@ export const exportHVACExcel = async (hvacItems) => {
         (sum, room) => sum + room.structures.length,
         0
       );
-
       // Merge Apartment cell
       sheet.mergeCells(`A${aptStartRow}:A${aptStartRow + aptRowCount - 1}`);
       const aptCell = sheet.getCell(`A${aptStartRow}`);
@@ -141,7 +140,7 @@ export const exportHVACExcel = async (hvacItems) => {
       apt.rooms.forEach((room) => {
         const roomStartRow = rowIndex;
         const roomStructCount = room.structures.length;
-
+        console.log(room);
         // Merge Room cell
         sheet.mergeCells(
           `B${roomStartRow}:B${roomStartRow + roomStructCount - 1}`
@@ -185,17 +184,15 @@ export const exportHVACExcel = async (hvacItems) => {
           const structureTitles = [
             null,
             null,
-            { text: s.type, bgColor: "FFFF00" },
+            { text: s.type }, //bgColor: "FFFF00"
             {
-              text: s.length || " ",
-              bgColor: "FFFF00",
-            },
-            { text: s.height || " ", bgColor: "FFFF00" },
-            { text: s.quantity || " ", bgColor: "FFFF00" },
+              text: s.length || " bababa",
+            }, //bgColor: "FFFF00",
+            { text: s.height || " " }, //bgColor: "FFFF00"
+            { text: s.quantity || " " }, //bgColor: "FFFF00"
             {
               text: s.i27 ? s.i27 : s.Mm27,
-              bgColor: s.i27 ? "FFFFFFFF" : "FFFF00",
-            },
+            }, //bgColor: s.i27 ? "FFFFFFFF" : "FFFF00",
             { text: s.j27 },
             { text: s.k27, fontColor: "FF0000" },
             { text: s.L27, fontColor: "FF0000" },
@@ -207,17 +204,17 @@ export const exportHVACExcel = async (hvacItems) => {
             { text: s.r27, fontColor: "FF0000" },
             { text: s.s27, fontColor: "FF0000" },
             { text: s.t27, fontColor: "0000FF" },
-            s.x27 === 0 ? null : { text: s.sunnyLabel, bgColor: "FFFF00" },
+            s.x27 === 0 ? null : { text: s.sunnyLabel }, //bgColor: "FFFF00"
             s.x27 === 0 ? null : { text: s.v27 },
             s.x27 === 0 ? null : { text: s.w27 },
             s.x27 === 0 ? null : { text: s.x27, fontColor: "0000FF" },
             s.x27 === 0 ? null : { text: s.y27 },
-            s.x27 === 0 ? null : { text: s.z27, bgColor: "FFFF00" },
+            s.x27 === 0 ? null : { text: s.z27 }, //bgColor: "FFFF00"
             s.x27 === 0 ? null : { text: s.aa27 },
             s.x27 === 0 ? null : { text: s.ab27 },
             s.x27 === 0 ? null : { text: s.ac27, fontColor: "0000FF" },
             s.x27 === 0 ? null : { text: s.ad27 },
-            s.x27 === 0 ? null : { text: s.Mm27, bgColor: "FFFF00" },
+            s.x27 === 0 ? null : { text: s.Mm27 }, //bgColor: "FFFF00"
             s.x27 === 0 ? null : { text: s.af27, fontColor: "0000FF" },
             //
             { text: s.ag27 },
@@ -251,7 +248,7 @@ export const exportHVACExcel = async (hvacItems) => {
             cell.fill = {
               type: "pattern",
               pattern: "solid",
-              fgColor: { argb: style?.bgColor || "FF32CD32" },
+              fgColor: { argb: style?.bgColor || "FFFFFFFF" },
             };
           });
 

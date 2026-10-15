@@ -4,14 +4,14 @@ import { structureTypes } from "../../Constants/structureTypes";
 import { useAppContext } from "../../Context/AppContextProvider";
 
 const sunTypes = [
-  { label: "აღმ", v27: 560 }, //570
-  { label: "დას", v27: 110 }, //570
-  { label: "სამ", v27: 160 }, //280
-  { label: "ჩრდ", v27: 160 }, //100
-  { label: "სა-აღ", v27: 150 }, ///450
-  { label: "სა-და", v27: 440 }, // 450
+  { label: "აღმ", v27: 570 }, //570
+  { label: "დას", v27: 570 }, //570
+  { label: "სამ", v27: 280 }, //280
+  { label: "ჩრდ", v27: 100 }, //100
+  { label: "სა-აღ", v27: 450 }, ///450
+  { label: "სა-და", v27: 450 }, // 450
   { label: "ჩრ-აღ", v27: 430 }, //430
-  { label: "ჩრ-და", v27: 150 }, //430
+  { label: "ჩრ-და", v27: 430 }, //430
 ];
 //befr wnds
 export const StructureForm = ({
@@ -32,7 +32,7 @@ export const StructureForm = ({
   const FLOR_TYPES = ["იატაკი გრ", "იატაკი", "მინის ჭერი", "ჭერი"];
   const [form, setForm] = useState({
     type: "",
-    width: "",
+    length: "",
     height: "",
     quantity: "1",
     sunny: "",
@@ -58,7 +58,7 @@ export const StructureForm = ({
         setErStructure(true);
         return;
       }
-    } else if (!form.type || !form.width || !form.height || !form.quantity) {
+    } else if (!form.type || !form.length || !form.height || !form.quantity) {
       setErStructure(true);
       return;
     }
@@ -71,19 +71,20 @@ export const StructureForm = ({
 
     setErStructure(false);
 
-    const F27 = Number(form.width);
+    const F27 = Number(form.length);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
-    let I27 = 0;
-    if (FLOR_TYPES.includes(form.type)) {
-      I27 = Number(form.m2);
-    } else {
-      I27 = F27 * G27 * H27;
-    }
+    // let I27 = 0;
+    // if (FLOR_TYPES.includes(form.type)) {
+    //   I27 = Number(form.m2);
+    // } else {
+    //   I27 = F27 * G27 * H27;
+    // }
+    const I27 = F27 * G27 * H27;
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
     const K27 = Number(currentRoom?.Temp);
-    const N27 = Number(currentRoom?.Temp);
+    const N27 = K27 + 1;
     const selectedsunny = sunTypes.find((t) => t.label === form.sunny) || {};
     const sunnyLabel = selectedsunny?.label || "უცნობი";
 
@@ -101,7 +102,7 @@ export const StructureForm = ({
       (selected?.q27 || 0) *
       (selected?.r27 || 0);
 
-    const t27 = I27 * (J27 || 0) * (selected?.P27 || 0);
+    const t27 = I27 * (J27 || 0) * (P27 || 0) * selected?.r27;
 
     let x27 = 0,
       af27 = 0,
@@ -121,15 +122,15 @@ export const StructureForm = ({
     // } else
     if (PRIORITY_TYPES.includes(form.type)) {
       // პრიორიტეტული ტიპი ყოველთვის ითვლება
-      x27 = 0.4 * (selectedsunny.v27 || 0) * I27;
-      ac27 = 120 * (z27 || 0);
-      af27 = Mm27 * 5;
-      priort = "პრიორიტეტი!";
-      w27 = 0.4;
-      y27 = "ადამიანი";
-      aa27 = 120;
+      x27 = 0.5 * (selectedsunny.v27 || 0) * I27; // w27
+      aa27 = 100; //adre iyo 120 matianid vakopirebt da amitom 100
       ab27 = 1;
-      ad27 = 5; //11
+      ad27 = 11; //11
+      ac27 = 100 * (z27 || 0) * 1; // aa27 * ab27 * z27
+      af27 = Mm27 * 11; //5 ad27z
+      priort = "პრიორიტეტი!";
+      w27 = 0.5; //შესასწორებელი კოეფიცინტი მაიტანიდა უდნა იყოს 0.5
+      y27 = "ადამიანი";
     } else {
       x27 = 0;
       af27 = 0;
@@ -173,7 +174,7 @@ export const StructureForm = ({
 
     setForm({
       type: "",
-      width: "",
+      length: "",
       height: "",
       quantity: "1",
       sunny: "",
@@ -190,7 +191,7 @@ export const StructureForm = ({
       setForm({
         roomtemp: editingStructure.roomtemp ?? "",
         type: editingStructure.type ?? "",
-        width: editingStructure.width ?? "",
+        length: editingStructure.length ?? "",
         height: editingStructure.height ?? "",
         quantity: editingStructure.quantity ?? "1",
         sunny: editingStructure.sunny ?? "",
@@ -202,7 +203,7 @@ export const StructureForm = ({
     cancelEdit();
     setForm({
       type: "",
-      width: "",
+      length: "",
       height: "",
       quantity: "1",
       sunny: "",
@@ -248,10 +249,10 @@ export const StructureForm = ({
         ) : (
           <div className="flex gap-2">
             <input
-              name="width"
+              name="length"
               type="number"
               placeholder="სიგრძე (მ)"
-              value={form.width}
+              value={form.length}
               onChange={ChangeInput}
               className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             />
