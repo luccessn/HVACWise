@@ -140,7 +140,6 @@ export const exportHVACExcel = async (hvacItems) => {
       apt.rooms.forEach((room) => {
         const roomStartRow = rowIndex;
         const roomStructCount = room.structures.length;
-        console.log(room);
         // Merge Room cell
         sheet.mergeCells(
           `B${roomStartRow}:B${roomStartRow + roomStructCount - 1}`
