@@ -183,7 +183,7 @@ export const HomeCard = () => {
               {state.hvacItems.map((floor) => (
                 <Panel
                   key={floor.floorId}
-                  header={`სართული :  ${floor.floorName}`}
+                  header={` ${floor.floorName}`}
                   eventKey={floor.floorId}
                   className="bg-[#b0c8eb]"
                   style={{
@@ -286,7 +286,7 @@ export const HomeCard = () => {
                           <Panel
                             className="bg-[#8babdb] p-2"
                             key={apt.id}
-                            header={`ბინა :  ${apt.name}`}
+                            header={`${apt.name}`}
                             eventKey={apt.id}
                           >
                             <RoomCard key={apt.id} apt={apt} />

@@ -41,11 +41,7 @@ export const RoomCard = ({ apt }) => {
         <PanelGroup accordion bordered>
           {apt.rooms.length > 0 &&
             apt.rooms.map((room) => (
-              <Panel
-                key={room.id}
-                header={`ოთახი :  ${room.name} `}
-                eventKey={room.id}
-              >
+              <Panel key={room.id} header={` ${room.name} `} eventKey={room.id}>
                 <div
                   key={room.id}
                   className="space-y-4 mt-4 bg-[#b1c0d6] p-4 py-8 border rounded"
