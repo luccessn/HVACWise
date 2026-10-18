@@ -151,31 +151,6 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
 
   return (
     <div className="flex gap-2 mb-4 flex-wrap">
-      {/* <input
-        name="name"
-        type="text"
-        placeholder="ოთახის სახელი"
-        value={rmForm.name}
-        onChange={ChangeInput}
-        className="border p-2"
-      /> */}
-      {/* <input
-        name="name"
-        type="text"
-        placeholder="ოთახის სახელი"
-        value={rmForm.name}
-        onChange={ChangeInput}
-        className="
-    w-full max-w-[220px] h-[45px] p-3 
-    rounded-xl border-[1.5px] border-gray-300 
-    outline-none 
-    transition-all duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] 
-    shadow-[0_0_20px_-18px_rgba(0,0,0,0.25)]
-    hover:border-2 hover:border-gray-300 hover:shadow-[0_0_20px_-17px_rgba(0,0,0,0.25)]
-    active:scale-95
-    focus:border-2 focus:border-gray-500
-  "
-      /> */}
       <div className="flex flex-col">
         <div
           className={`rounded-md transition-colors duration-100 ease-out ${"bg-[#222222]"}`}
@@ -189,7 +164,7 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             required
             // onBlur={() => setTouched(true)}
-            className={`w-[200px] h-[50px] border-2 rounded-md px-5 font-bold text-zinc-500   bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            className={`w-[200px] h-[50px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
           />
         </div>
         {/* <p
@@ -222,7 +197,7 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             required
             // onBlur={() => setTouched(true)}
-            className={`w-[180px] h-[50px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            className={`w-[180px] h-[50px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
           />
         </div>
         {/* <p
@@ -254,7 +229,7 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             required
             // onBlur={() => setTouched(true)}
-            className={`w-[130px] h-[50px] border-2 rounded-md px-5 font-bold  text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            className={`w-[130px] h-[50px] border-2 rounded-md px-5 font-bold  text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
           />
         </div>
         {/* <p
@@ -273,7 +248,7 @@ export const AddRoomForm = ({ onAddRoom, apartmentId }) => {
             name="humans"
             value={rmForm.humans}
             onChange={ChangeInput}
-            className={`w-[150px] h-[50px] border-2 rounded-md px-5 font-bold text-zinc-500   bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+            className={`w-[150px] h-[50px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
           >
             <option value="">მცხოვრების რაოდენობა</option>
             {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (

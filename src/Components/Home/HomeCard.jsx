@@ -109,7 +109,7 @@ export const HomeCard = () => {
               strokeLinecap="round"
             ></path>
           </svg>
-          გასუფთავება მთლიანად
+          გასუფთავება
         </button>
       </div>
       <AddFloor />
@@ -133,11 +133,9 @@ export const HomeCard = () => {
             0V8a1 1 0 00-1-1z"
                 />
               </svg>
-              <h2 className="text-xl font-bold py-4 text-gray-200">
-                დარწნუნებული ხარ?
-              </h2>
-              <p className="font-bold text-sm text-gray-400 px-2">
-                დაიმახსოვრე გასუფთავებული ინფორმაცია ვეღარ აღდგება.
+              <h2 className="text-xl font-bold py-4 text-gray-200">AL Left?</h2>
+              <p className="font-bold text-sm text-gray-400 px-1">
+                გასუფთავებული ინფორმაცია ვეღარ აღდგება.
               </p>
             </div>
             <div className="p-2 mt-4 text-center space-x-2 md:block">
@@ -161,35 +159,35 @@ export const HomeCard = () => {
         </div>
       )}
 
-      <div className="flex justify-center  ">
+      <div className="flex justify-center   ">
         <div
-          className={`overflow-y-auto ml-24 w-[1300px] h-screen scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-gray-200   p-2 rounded-lg 
+          className={`overflow-y-auto ml-24 w-[1350px] h-screen scrollbar-thin  scrollbar-thumb-blue-600 scrollbar-track-gray-200   p-2 rounded-lg 
           `}
         >
           {" "}
           {state.hvacItems.length === 0 ? (
-            <div className="translate-y-32">
-              <h2 className="bg-clip-text text-transparent text-center  bg-gradient-to-b from-neutral-900 to-neutral-500  text-2xl md:text-4xl lg:text-6xl font-sans py-8 relative z-20 font-bold tracking-tight">
-                HVACWISE =/ Solutions.
+            <div className="translate-y-32 text-white">
+              <h2 className="bg-clip-text text-transparent text-center  bg-gradient-to-b from-neutral-900 to-white  text-2xl md:text-4xl lg:text-6xl font-sans py-8 relative z-20 font-bold tracking-tight">
+                HVACWISE =/ Solutions
               </h2>
-              <p className="max-w-xl mx-auto  text-sm md:text-lg   text-neutral-500 text-center">
-                HVACWise გაძლევს შენობის კლიმატზე სრულ კონტროლს — ზუსტი სითბოს
+              <p className="max-w-xl mx-auto  text-sm md:text-lg    text-neutral-400  text-center">
+                HVACWise გაძლევს შენობის კლიმატზე სრულ კონტროლს, ზუსტი სითბოს
                 ნაკადის ანალიტიკით .
               </p>
             </div>
           ) : null}
           <PanelGroup accordion defaultActiveKey={state.hvacItems[0]?.floorId}>
-            <div className="  flex flex-col gap-3">
+            <div className="  flex flex-col gap-4">
               {state.hvacItems.map((floor) => (
                 <Panel
                   key={floor.floorId}
                   header={` ${floor.floorName}`}
                   eventKey={floor.floorId}
-                  className="bg-[#b0c8eb]"
+                  className=" text-white border-2 backdrop-blur-2xl  border-purple-600"
                   style={{
                     // backgroundColor: panelBackground,
-                    borderRadius: "8px",
-                    padding: "8px",
+                    borderRadius: "0px",
+                    padding: "5px",
                   }}
                 >
                   {/* ბინის დამატება კონკრეტულ სართულში */}
@@ -202,10 +200,10 @@ export const HomeCard = () => {
                         setfloorApartmentsNames({
                           ...floorApartmentsNames,
                           [floor.floorId]: e.target.value,
-                        })
-                      }
-                      className="border-2 p-2 w-full rounded-lg border-purple-800 bg-gray-100"
-                    /> */}
+                          })
+                          }
+                          className="border-2 p-2 w-full rounded-lg border-purple-800 bg-gray-100"
+                          /> */}
                     <div className="flex flex-row gap-2 ">
                       <input
                         type="text"
@@ -213,20 +211,21 @@ export const HomeCard = () => {
                         value={floorApartmentsNames[floor.floorId] || ""}
                         onChange={(e) => AprtHandelChange(e, floor.floorId)}
                         className={`
-    w-full  p-3 
-    rounded-xl border-2       
-
-    outline-none 
-    transition-all duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] 
-    shadow-[0_0_20px_-18px_rgba(0,0,0,0.25)]
-    hover:border-2  hover:shadow-[0_0_20px_-17px_rgba(0,0,0,0.25)]
+                          w-full  p-3 
+                          rounded-sm border-2 
+                          text-black font-bold text-base
+                          font-mono
+                          outline-none 
+                          transition-all duration-300 ease-[cubic-bezier(0.19,1,0.22,1)] 
+                          shadow-[0_0_20px_-18px_rgba(0,0,0,0.25)]
+                          hover:border-2  hover:shadow-[0_0_20px_-17px_rgba(0,0,0,0.25)]
     active:scale-95
-    focus:border-2 focus:border-purple-800
-                    ${
-                      ErrorApart
-                        ? "border-red-500 hover:border-red-800 "
-                        : "border-gray-500 hover:border-blue-800"
-                    } `}
+     focus:border-purple-800 focus:border-4
+    ${
+      ErrorApart
+        ? "border-red-500 hover:border-red-800 "
+        : "border-gray-500 hover:border-blue-800 "
+    } `}
                       />
                       {/* <button className="bg-blue-600 text-white px-4 py-2 rounded"></button> */}
                       <button
@@ -276,15 +275,14 @@ export const HomeCard = () => {
                   </div>
                   <div
                     className={`overflow-y-auto scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-gray-200   p-2 ${
-                      floor.apartments.length > 4 ? "max-h-[650px]" : ""
+                      floor.apartments.length > 4 ? "max-h-[650px] " : ""
                     }`}
                   >
                     <PanelGroup accordion>
                       <div className="flex flex-col gap-3 ">
-                        {" "}
                         {floor.apartments.map((apt) => (
                           <Panel
-                            className="bg-[#8babdb] p-2"
+                            className="  text-white border-2 rounded-none backdrop-blur-2xl  border-blue-700" //bg-[#c4c4c4]
                             key={apt.id}
                             header={`${apt.name}`}
                             eventKey={apt.id}
@@ -294,7 +292,7 @@ export const HomeCard = () => {
                           <span className="text-lg font-bold">{apt.name}</span>
                           {"  "}
                           ბინის წაშლა
-                        </button> */}
+                          </button> */}
                             <button
                               onClick={() =>
                                 dispatch(
@@ -327,6 +325,7 @@ export const HomeCard = () => {
                       </div>
                     </PanelGroup>
                   </div>
+
                   <button
                     onClick={() => dispatch(removeFlorAction(floor.floorId))}
                     className="inline-flex  items-center mt-2 px-4 py-2 bg-red-600 transition ease-in-out duration-300 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:scale-105"
@@ -353,6 +352,7 @@ export const HomeCard = () => {
           </PanelGroup>
         </div>
       </div>
+
       {/* 1 */}
       {/* <div className="loader  absolute bottom-80 left-40 -z-10 ">
         <div className="box box-1">

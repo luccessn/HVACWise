@@ -42,7 +42,7 @@ export const AddFloor = () => {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-bold mb-6">
+      <h1 className="text-2xl font-bold text-white  m-3">
         ბინების და ოთახების მენეჯმენტი
       </h1>
       <div className="flex gap-2 mb-6">
@@ -61,7 +61,7 @@ export const AddFloor = () => {
             onChange={handleChange}
             className={`
             w-full h-[60px] p-3 text-[18px] font-mono text-black
-            bg-white border-[4px]  rounded-none
+            bg-white border-[4px]  rounded-md
             outline-none transition-all duration-400 ease-in-out
             shadow-[8px_8px_0_#000]
             placeholder:text-[#888]

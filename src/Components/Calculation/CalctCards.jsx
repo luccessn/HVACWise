@@ -18,11 +18,13 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
   const sumG = sumAg27 / 1000;
 
   return (
-    <div className="p-4 border rounded-lg bg-gray-200">
+    <div className="p-4 border rounded-lg text-black bg-gray-200">
       {/* 🟡 ოთახის საერთო ინფორმაცია */}
       <div className="mb-4 p-3 rounded-lg bg-white shadow">
-        <h3 className="text-lg font-bold mb-2">ოთახის პარამეტრები</h3>
-        <div className="grid grid-cols-2 gap-2 text-[15px] text-gray-700">
+        <h3 className="text-lg font-bold text-black mb-2">
+          ოთახის პარამეტრები
+        </h3>
+        <div className="grid grid-cols-2 gap-2 text-[15px] ">
           <div>
             <span className="font-semibold">ფართობი (m²):</span> {room.m2 || 0}
           </div>
@@ -54,7 +56,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
                   s.type === "ჭერი" ||
                   s.type === "მინის ჭერი"
                     ? "მთლიანი კვადრატის არეალით"
-                    : `სიგრძე: ${s.width}მ x სიმაღლე: ${s.height}მ`}
+                    : `სიგრძე: ${s.length}მ x სიმაღლე: ${s.height}მ`}
                 </div>
 
                 {s.priort ? (
@@ -100,9 +102,12 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
                           </h3>
                         </div>
                         <p className="text-sm text-gray-300">
-                          ეს სტრუქტურა პრიორიტეტულია — ერთდროულად მხოლოდ ერთი
-                          შეიძლება იყოს. თუ წაშლით, შემდეგში შეგიძლიათ ახალი
-                          დაამატოთ.
+                          სტრუქტურები როგორიც არის : ვიტრაჟი , ფანჯარა -- მხოლოდ
+                          აქვთ დამატები განსაზღვრება ორიენტაციის მიხედვით.
+                          ამიტომ მნიშვნელოვანია რომ სწორად შეირჩეს ორიენტაცია.
+                          მაგალითად თუ ფანჯარა სამხრეთის მხარესაა ორიენტირებული
+                          მაშინ უნდა აირჩიოთ ორიენტაცია “სამხრეთი“ რათა
+                          გამოთვლები იყოს ზუსტი.
                         </p>
                       </div>
                     </div>

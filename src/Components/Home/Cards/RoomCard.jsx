@@ -17,7 +17,8 @@ export const RoomCard = ({ apt }) => {
   const { dispatch } = useAppContext();
 
   return (
-    <div className="border p-4 mb-6  bg-[#96a4b6] rounded">
+    <div className=" p-4 mb-6   text-white border-2 backdrop-blur-2xl  border-green-600 rounded-md ">
+      {/* bg-[#afb2b8] */}
       {/* <h3 className="text-lg font-semibold mb-2">{apt.name}</h3> */}
       {/* <h3 className="text-lg font-semibold mb-2">ოთახის დამატება</h3> */}
 
@@ -44,13 +45,11 @@ export const RoomCard = ({ apt }) => {
               <Panel key={room.id} header={` ${room.name} `} eventKey={room.id}>
                 <div
                   key={room.id}
-                  className="space-y-4 mt-4 bg-[#b1c0d6] p-4 py-8 border rounded"
+                  className="space-y-4 mt-4 bg-[#78808b]  p-4 py-8 border rounded"
                 >
-                  {/* <h3 className="font-semibold mb-2">{room.name}</h3> */}
-                  {/* სტრუქტურის დამატება/რედაქტირება */}
                   <StructureForm
-                    apartmentId={apt.id} // ✅ გადასცემ ბინას ID-ს
-                    roomId={room.id} // ✅ გადასცემ ოთახის ID-ს
+                    apartmentId={apt.id}
+                    roomId={room.id}
                     onAddStructure={(structure) => {
                       if (editingStructure) {
                         dispatch(
@@ -77,14 +76,12 @@ export const RoomCard = ({ apt }) => {
                     }
                     cancelEdit={() => setEditingStructure(null)}
                   />
-                  {/* {room.structures.length > 0 && ( */}
                   <>
                     <CalctCards
                       room={room}
                       setEditingStructure={setEditingStructure}
                       apt={apt}
                     />
-                    {/* <button className="text-red-600 mt-2">ოთახის წაშლა</button> */}
                     <button
                       onClick={() => {
                         // if (confirm("ნამდვილად გსურს ოთახის წაშლა?")) {

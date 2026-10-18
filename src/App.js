@@ -12,7 +12,7 @@ function App() {
   /* eslint-disable prettier/prettier */
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white">
+    <div className="relative min-h-screen overflow-hidden ">
       {/* Background */}
       {/* <div className="fixed inset-0 bg-zinc-600 -z-10">
         {" "}
@@ -27,7 +27,7 @@ function App() {
       </div> */}
       <BackgroundLines
         svgOptions={{ duration: 10 }}
-        className="flex justify-center w-full h-full flex-col "
+        className="flex justify-center w-full h-full flex-col bg-black " //bg-black
       >
         <RetroGrid />
         <div className="relative z-10 items-center ">

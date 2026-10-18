@@ -213,7 +213,6 @@ export const StructureForm = ({
   return (
     <div className="flex flex-col">
       <div className="flex gap-2 mb-2 items-center flex-wrap">
-        {/* სტრუქტურის ტიპი */}
         <div className="flex flex-col">
           <div className="rounded-md bg-[#222222]">
             <select
@@ -221,9 +220,11 @@ export const StructureForm = ({
               value={form.type}
               onChange={ChangeInput}
               // className="w-[180px] text-zinc-500 h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] border-[#222222]"
-              className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             >
-              <option value=""> სტრუქტურა</option>
+              <option value="" className="text-zinc-500">
+                სტრუქტურა
+              </option>
               {structureTypes.map((t) => (
                 <option key={t.label} value={t.label}>
                   {t.label}
@@ -242,7 +243,7 @@ export const StructureForm = ({
                 type="number"
                 placeholder="ფართობი (მ²)"
                 required
-                className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+                className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
               />
             </div>
           </div>
@@ -254,7 +255,7 @@ export const StructureForm = ({
               placeholder="სიგრძე (მ)"
               value={form.length}
               onChange={ChangeInput}
-              className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              className={`w-[150px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             />
 
             <input
@@ -263,14 +264,14 @@ export const StructureForm = ({
               placeholder="სიმაღლე (მ)"
               value={form.height}
               onChange={ChangeInput}
-              className={`w-[170px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              className={`w-[170px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#807f7f] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             />
 
             <select
               name="quantity"
               value={form.quantity}
               onChange={ChangeInput}
-              className={`w-[90px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
+              className={`w-[90px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             >
               {[1, 2, 3].map((num) => (
                 <option key={num} value={num}>
@@ -290,7 +291,7 @@ export const StructureForm = ({
                 name="sunny"
                 value={form.sunny}
                 onChange={ChangeInput}
-                className="w-[170px] h-[40px] border-2 rounded-md px-5 font-bold text-zinc-500 bg-[#e8e8e8]"
+                className="w-[170px] h-[40px] border-2 rounded-md px-5 font-bold text-black bg-[#e8e8e8]"
               >
                 <option value="">ორიენტაცია</option>
                 {sunTypes.map((t) => (
