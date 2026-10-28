@@ -4,16 +4,16 @@ import { structureTypes } from "../../Constants/structureTypes";
 import { useAppContext } from "../../Context/AppContextProvider";
 
 const sunTypes = [
-  { label: "აღმ", v27: 570 }, //570
-  { label: "დას", v27: 570 }, //570
-  { label: "სამ", v27: 280 }, //280
-  { label: "ჩრდ", v27: 100 }, //100
-  { label: "სა-აღ", v27: 450 }, ///450
-  { label: "სა-და", v27: 450 }, // 450
-  { label: "ჩრ-აღ", v27: 430 }, //430
-  { label: "ჩრ-და", v27: 430 }, //430
+  { label: "აღმ", v27: 570 },
+  { label: "დას", v27: 570 },
+  { label: "სამ", v27: 280 },
+  { label: "ჩრდ", v27: 100 },
+  { label: "სა-აღ", v27: 450 },
+  { label: "სა-და", v27: 450 },
+  { label: "ჩრ-აღ", v27: 430 },
+  { label: "ჩრ-და", v27: 430 },
 ];
-//befr wnds
+
 export const StructureForm = ({
   apartmentId,
   roomId,
@@ -30,6 +30,7 @@ export const StructureForm = ({
 
   const PRIORITY_TYPES = ["ვიტრაჟი", "ფანჯარა"];
   const FLOR_TYPES = ["იატაკი გრ", "იატაკი", "მინის ჭერი", "ჭერი"];
+
   const [form, setForm] = useState({
     type: "",
     length: "",
@@ -49,10 +50,6 @@ export const StructureForm = ({
   }, [currentRoom]);
 
   const handleAdd = () => {
-    // if () {
-    //   setErStructure(true);
-    //   return;
-    // }
     if (FLOR_TYPES.includes(form.type)) {
       if (!form.m2) {
         setErStructure(true);
@@ -63,7 +60,7 @@ export const StructureForm = ({
       return;
     }
 
-    // თუ ეს არის პრიორიტეტული ტიპი, უნდა იყოს არჩეული sunny
+    // პრიორიტეტული ტიპისთვის სავალდებულოა ორიენტაცია
     if (PRIORITY_TYPES.includes(form.type) && !form.sunny) {
       setErStructure(true);
       return;
@@ -74,12 +71,6 @@ export const StructureForm = ({
     const F27 = Number(form.length);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
-    // let I27 = 0;
-    // if (FLOR_TYPES.includes(form.type)) {
-    //   I27 = Number(form.m2);
-    // } else {
-    //   I27 = F27 * G27 * H27;
-    // }
     const I27 = F27 * G27 * H27;
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
@@ -89,57 +80,65 @@ export const StructureForm = ({
     const sunnyLabel = selectedsunny?.label || "უცნობი";
 
     const selected = structureTypes.find((t) => t.label === form.type);
+    if (!selected) {
+      setErStructure(true);
+      return;
+    }
+
     const L27 = Number(selected.L27);
-    const O27 = Number(selected?.O27);
+    const O27 = Number(selected.O27);
     const P27 = O27 - N27;
     const M27 = K27 - L27;
-    const J27 = selected ? selected.j27 : 0;
+    const J27 = selected.j27 || 0;
 
     const s27 =
-      I27 *
-      (J27 || 0) *
-      (M27 || 0) *
-      (selected?.q27 || 0) *
-      (selected?.r27 || 0);
+      I27 * (J27 || 0) * (M27 || 0) * (selected.q27 || 0) * (selected.r27 || 0);
 
-    const t27 = I27 * (J27 || 0) * (P27 || 0) * selected?.r27;
+    const t27 = I27 * (J27 || 0) * (P27 || 0) * (selected.r27 || 0);
 
-    let x27 = 0,
+    // ოთახში უკვე არის თუ არა სხვა ვიტრაჟი/ფანჯარა
+    // (რედაქტირებისას საკუთარ თავს არ ვთვლით)
+    const alreadyHasPriority = (currentRoom?.structures || []).some((s) => {
+      if (!PRIORITY_TYPES.includes(s.type)) return false;
+
+      // რედაქტირებისას საკუთარ თავს ვტოვებთ
+      const isSelf =
+        editingStructure &&
+        (s === editingStructure ||
+          (s.id !== undefined && s.id === editingStructure.id));
+
+      return !isSelf;
+    });
+    // პრიორიტეტული ველები მხოლოდ პირველ ვიტრაჟს/ფანჯარას ეძლევა
+    const isFirstPriority =
+      PRIORITY_TYPES.includes(form.type) && !alreadyHasPriority;
+    let x27 = 0.5 * (selectedsunny.v27 || 0) * I27,
       af27 = 0,
       ac27 = 0,
-      priort = "",
-      w27 = 0,
+      priort = "პრიორიტეტი",
+      w27 = 0.5,
       y27 = "",
       aa27 = 0,
       ab27 = 0,
       ad27 = 0;
-
-    // 👉 აქ ვცვლით ლოგიკას: PRIORITY_TYPES ყოველთვის ითვლება
-    // if (form.type === "იატაკი" || form.type === "ჭერი") {
-    //   x27 = 0;
-    //   af27 = 0;
-    //   ac27 = 0;
-    // } else
-    if (PRIORITY_TYPES.includes(form.type)) {
-      // პრიორიტეტული ტიპი ყოველთვის ითვლება
-      x27 = 0.5 * (selectedsunny.v27 || 0) * I27; // w27
-      aa27 = 100; //adre iyo 120 matianid vakopirebt da amitom 100
+    if (isFirstPriority) {
+      x27;
+      aa27 = 100;
       ab27 = 1;
-      ad27 = 11; //11
-      ac27 = 100 * (z27 || 0) * 1; // aa27 * ab27 * z27
-      af27 = Mm27 * 11; //5 ad27z
-      priort = "პრიორიტეტი!";
-      w27 = 0.5; //შესასწორებელი კოეფიცინტი მაიტანიდა უდნა იყოს 0.5
+      ad27 = 11;
+      ac27 = 100 * z27 * 1;
+      af27 = Mm27 * 11;
+      priort;
+      w27;
       y27 = "ადამიანი";
-    } else {
-      x27 = 0;
-      af27 = 0;
-      ac27 = 0;
     }
 
     const ag27 = af27 + ac27 + x27 + t27;
 
     const fullStructure = {
+      id:
+        editingStructure?.id ??
+        `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       ...form,
       i27: I27,
       j27: J27,
@@ -149,25 +148,29 @@ export const StructureForm = ({
       N27: N27 ?? null,
       O27: O27 ?? null,
       P27: P27 ?? null,
-      q27: selected?.q27 ?? null,
-      r27: selected?.r27 ?? null,
-      sunnyLabel,
-      v27: selectedsunny.v27 || 0,
-      w27,
-      x27,
-      y27,
-      z27,
-      aa27,
-      ab27,
-      ac27,
-      ad27,
-      Mm27,
-      af27,
-      ag27,
+      q27: selected.q27 ?? null,
+      r27: selected.r27 ?? null,
       s27,
       t27,
-      priort,
+      ag27,
       Temp: currentRoom?.Temp || "",
+      ...(PRIORITY_TYPES.includes(form.type) && {
+        sunnyLabel,
+        v27: selectedsunny.v27 || 0,
+        w27,
+        x27,
+        priort,
+      }),
+      ...(isFirstPriority && {
+        y27,
+        z27,
+        aa27,
+        ab27,
+        ac27,
+        ad27,
+        Mm27,
+        af27,
+      }),
     };
 
     onAddStructure(fullStructure);
@@ -178,6 +181,7 @@ export const StructureForm = ({
       height: "",
       quantity: "1",
       sunny: "",
+      m2: currentRoom?.m2 || "",
     });
   };
 
@@ -195,6 +199,7 @@ export const StructureForm = ({
         height: editingStructure.height ?? "",
         quantity: editingStructure.quantity ?? "1",
         sunny: editingStructure.sunny ?? "",
+        m2: editingStructure.m2 ?? currentRoom?.m2 ?? "",
       });
     }
   }, [editingStructure, currentRoom]);
@@ -207,6 +212,7 @@ export const StructureForm = ({
       height: "",
       quantity: "1",
       sunny: "",
+      m2: currentRoom?.m2 || "",
     });
   };
 
@@ -219,7 +225,6 @@ export const StructureForm = ({
               name="type"
               value={form.type}
               onChange={ChangeInput}
-              // className="w-[180px] text-zinc-500 h-[40px] border-2 rounded-md px-5 font-bold bg-[#e8e8e8] border-[#222222]"
               className={`w-[180px] h-[40px] border-2 rounded-md px-5 font-bold text-black  bg-[#e8e8e8] text-[15px] font-sans transition-transform duration-100 ease-out focus:outline-none focus:-translate-y-[3px] placeholder:text-[#646464] placeholder:font-bold placeholder:text-[15px] ${"border-[#222222]"}`}
             >
               <option value="" className="text-zinc-500">
@@ -233,6 +238,7 @@ export const StructureForm = ({
             </select>
           </div>
         </div>
+
         {FLOR_TYPES.includes(form.type) ? (
           <div className="flex flex-col">
             <div className="rounded-md bg-[#222222]">
@@ -281,7 +287,6 @@ export const StructureForm = ({
             </select>
           </div>
         )}
-        {/* ზომები */}
 
         {/* 🌤 მხოლოდ ვიტრაჟისა და ფანჯრისას გამოვაჩინოთ */}
         {PRIORITY_TYPES.includes(form.type) && (
