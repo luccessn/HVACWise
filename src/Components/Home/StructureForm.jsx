@@ -13,7 +13,8 @@ const sunTypes = [
   { label: "ჩრ-აღ", v27: 430 },
   { label: "ჩრ-და", v27: 430 },
 ];
-
+// const ceil = (n) => Math.ceil((Number(n) || 0) * 10) / 10;
+// const round2 = (n) => Math.round(Number(n) || 0);
 export const StructureForm = ({
   apartmentId,
   roomId,

@@ -406,7 +406,8 @@ export const exportHVACExcel = async (hvacItems) => {
         const sumS = room.structures.reduce((sum, s) => sum + s.s27, 0) / 1000;
         const sumG = room.structures.reduce((sum, s) => sum + s.ag27, 0) / 1000;
 
-        room.structures.forEach((s) => {
+        room.structures.forEach((s, idx) => {
+          const lastIndex = idx === room.structures.length - 1;
           const structureTitles = [
             { text: s.type },
             { text: s.L27 },
@@ -439,8 +440,8 @@ export const exportHVACExcel = async (hvacItems) => {
             s.x27 === 0 ? null : { text: s.Mm27 },
             s.x27 === 0 ? null : { text: s.af27, fontColor: "0000FF" },
             { text: s.ag27 },
-            { text: sumS.toFixed(2), fontColor: "FF0000" },
-            { text: sumG.toFixed(2), fontColor: "0000FF" },
+            lastIndex ? { text: sumG.toFixed(2), fontColor: "0000FF" } : null,
+            lastIndex ? { text: sumS.toFixed(2), fontColor: "FF0000" } : null,
           ];
           // if (structureTitles.length !== headerTitles.length) {
           //   console.warn(
