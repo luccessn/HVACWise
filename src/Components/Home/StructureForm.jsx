@@ -68,11 +68,11 @@ export const StructureForm = ({
     }
 
     setErStructure(false);
-
+    const isFloorType = FLOR_TYPES.includes(form.type);
     const F27 = Number(form.length);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
-    const I27 = F27 * G27 * H27;
+    const I27 = isFloorType ? Number(form.m2) || 0 : F27 * G27 * H27;
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
     const K27 = Number(currentRoom?.Temp);

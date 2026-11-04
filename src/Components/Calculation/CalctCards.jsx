@@ -16,7 +16,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
 
   const sumS = sumS27 / 1000;
   const sumG = sumAg27 / 1000;
-
+  console.log(structures);
   return (
     <div className="p-4 border rounded-lg text-black bg-gray-200">
       {/* 🟡 ოთახის საერთო ინფორმაცია */}
@@ -55,10 +55,12 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
                   s.type === "იატაკი გრ" ||
                   s.type === "ჭერი" ||
                   s.type === "მინის ჭერი"
-                    ? "მთლიანი კვადრატის არეალით"
+                    ? s.i27 === s.m2
+                      ? "მთლიანი კვადრატული არეალი"
+                      : "ფართობი: " + s.i27 + "მ²"
                     : `სიგრძე: ${s.length}მ x სიმაღლე: ${s.height}მ`}
                 </div>
-
+                {/* `${s.i27}  კვადრატის არეალით"   */}
                 {s.priort ? (
                   <div className="relative inline-block group">
                     <button className="relative hover:scale-110 px-10 top-2 text-sm font-semibold text-orange-600 rounded-xl transition-all duration-300 overflow-hidden">
