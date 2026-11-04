@@ -161,7 +161,7 @@ export const HomeCard = () => {
 
       <div className="flex justify-center   ">
         <div
-          className={`overflow-y-auto ml-24 w-[1350px] h-screen scrollbar-thin  scrollbar-thumb-blue-600 scrollbar-track-gray-200   p-2 rounded-lg 
+          className={`overflow-y-auto ml-24 w-3/4 h-screen scrollbar-thin  scrollbar-thumb-blue-600 scrollbar-track-gray-200   p-2 rounded-lg 
           `}
         >
           {" "}

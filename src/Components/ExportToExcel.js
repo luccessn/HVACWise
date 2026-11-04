@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+const toNum = (v) => {
+  if (v === null || v === undefined || v === "") return null;
+  const n = Number(v);
+  return Number.isNaN(n) ? v : n; // თუ ტექსტია (მაგ. სტრუქტურის სახელი), არ შეეხოს
+};
 const applyOuterBorder = (sheet, totalCols) => {
   const medium = { style: "medium", color: { argb: "FF000000" } };
   const firstRow = 1;
@@ -322,8 +327,8 @@ export const exportHVACExcel = async (hvacItems) => {
     },
     // { text: "შემოსული სითბო W", fontColor: "FF0000FF" },
     { text: "სითბოს მოდინება WAT" },
-    { text: "საბოლოო თბოდანაკარგი kvt", fontColor: "FFFF0000" },
     { text: "საბოლოო სითბოს მოდინება kvt", fontColor: "FF0000FF" },
+    { text: "საბოლოო თბოდანაკარგი kvt", fontColor: "FFFF0000" },
   ];
 
   const {
@@ -449,7 +454,7 @@ export const exportHVACExcel = async (hvacItems) => {
           //   );
           // }
           const newRow = sheet.addRow(
-            structureTitles.map((h) => h?.text ?? null)
+            structureTitles.map((h) => toNum(h?.text))
           );
 
           newRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
