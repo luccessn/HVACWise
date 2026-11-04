@@ -16,7 +16,6 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
 
   const sumS = sumS27 / 1000;
   const sumG = sumAg27 / 1000;
-  console.log(structures);
   return (
     <div className="p-4 border rounded-lg text-black bg-gray-200">
       {/* 🟡 ოთახის საერთო ინფორმაცია */}
