@@ -1,16 +1,33 @@
 /* eslint-disable prettier/prettier */
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+
+// სვეტის ნომერი -> რიცხვის ფორმატი
 const COLUMN_FORMATS = {
   9: "0.00", // j27
   10: "0.0", // q27
   11: "0.00", // r27
 };
+
+// "სულ" row-ში სვეტის ნომერი -> ტექსტის ფერი
+const TOTAL_COLORS = {
+  13: "FFFF0000",
+  17: "FF0000FF",
+  22: "FF0000FF",
+  27: "FF0000FF",
+  30: "FF0000FF",
+  31: "FF0000FF",
+  32: "FFFF0000",
+};
+
 const toNum = (v) => {
   if (v === null || v === undefined || v === "") return null;
   const n = Number(v);
   return Number.isNaN(n) ? v : n; // თუ ტექსტია (მაგ. სტრუქტურის სახელი), არ შეეხოს
 };
+
+const toArgb = (c) => (!c ? "FF000000" : c.length === 6 ? "FF" + c : c);
+
 const applyOuterBorder = (sheet, totalCols) => {
   const medium = { style: "medium", color: { argb: "FF000000" } };
   const firstRow = 1;
@@ -30,6 +47,7 @@ const applyOuterBorder = (sheet, totalCols) => {
     }
   }
 };
+
 const buildGroupedHeader = (
   sheet,
   headerTitles,
@@ -41,13 +59,12 @@ const buildGroupedHeader = (
   const thin = { style: "thin" };
   const hasSuper = superGroups.length > 0;
   const empty = () => Array(total).fill(null);
-  // const levels = hasSuper ? 3 : 2;
+
   // მთავარი სათაურები (ყველაზე ზედა რიგი)
   if (mainTitles.length > 0) {
     const rowMain = sheet.addRow(empty());
     rowMain.height = Math.max(...mainTitles.map((m) => m.height ?? 40));
 
-    // გადაფარვის შემოწმება
     const usedMain = new Set();
     mainTitles.forEach((m) => {
       for (let c = m.start; c <= m.end; c++) {
@@ -62,7 +79,6 @@ const buildGroupedHeader = (
       for (let c = m.start; c <= m.end; c++) {
         const cell = rowMain.getCell(c);
         cell.border = { top: side, left: side, bottom: side, right: side };
-        // fill აღარ გვაქვს, ფონი უფერო რჩება
       }
 
       const mainCell = rowMain.getCell(m.start);
@@ -78,6 +94,7 @@ const buildGroupedHeader = (
       }
     });
   }
+
   // გადაფარვის შემოწმება
   const used = new Set();
   groups.forEach((g) => {
@@ -114,7 +131,7 @@ const buildGroupedHeader = (
   const rowSuper = hasSuper ? sheet.addRow(empty()) : null;
   const rowGroup = sheet.addRow(empty());
   const rowSub = sheet.addRow(empty());
-  const r0 = (rowSuper || rowGroup).number; // პირველი header-ის რიგი
+  const r0 = (rowSuper || rowGroup).number;
   const rGroup = rowGroup.number;
   const rLast = rowSub.number;
 
@@ -136,6 +153,7 @@ const buildGroupedHeader = (
       sheet.getCell(top, c).value = headerTitles[c - 1].text;
     }
   }
+
   // სიმაღლეები
   if (rowSuper) rowSuper.height = 30;
   rowGroup.height = 60;
@@ -150,7 +168,6 @@ const buildGroupedHeader = (
     if (g.title) {
       if (g.end > g.start) sheet.mergeCells(rGroup, g.start, rGroup, g.end);
     } else {
-      // title არ არის: თითო ქვესათაური გაჭიმე rGroup-იდან rLast-მდე
       for (let c = g.start; c <= g.end; c++) {
         sheet.mergeCells(rGroup, c, rLast, c);
       }
@@ -184,7 +201,6 @@ const buildGroupedHeader = (
         wrapText: true,
       };
       cell.font = {
-        // bold: true,
         size: 11,
         color: { argb: isTitle ? "FF000000" : src?.fontColor || "FF000000" },
       };
@@ -197,6 +213,7 @@ const buildGroupedHeader = (
     }
   });
 };
+
 const flattenHeader = (config) => {
   const headerTitles = []; // ბრტყელი სია (ყველა სვეტი)
   const groups = [];
@@ -233,11 +250,10 @@ const flattenHeader = (config) => {
   const widths = headerTitles.map((h) => h.width ?? 14);
   return { headerTitles, groups, superGroups, widths };
 };
+
 export const exportHVACExcel = async (hvacItems) => {
   const workbook = new ExcelJS.Workbook();
   const sheet = workbook.addWorksheet("HVAC");
-
-  // let rowIndex = 1;
 
   // Header
   const headerConfig = [
@@ -330,8 +346,6 @@ export const exportHVACExcel = async (hvacItems) => {
         },
       ],
     },
-    // { text: "შემოსული სითბო W", fontColor: "FF0000FF" },
-    // { text: "სითბოს მოდინება WAT" },
     { text: "საბოლოო სითბოს მოდინება kvt", fontColor: "FF0000FF" },
     { text: "საბოლოო თბოდანაკარგი kvt", fontColor: "FFFF0000" },
   ];
@@ -348,10 +362,10 @@ export const exportHVACExcel = async (hvacItems) => {
     {
       title: "სითბოს მოდინების ანგარიში",
       start: 12,
-      end: 32,
+      end: headerTitles.length,
     },
   ]);
-  // rowIndex++;
+
   const getExcelColumnLetter = (colIndex) => {
     let letter = "";
     while (colIndex > 0) {
@@ -363,6 +377,8 @@ export const exportHVACExcel = async (hvacItems) => {
   };
 
   const lastColLetter = getExcelColumnLetter(headerTitles.length);
+
+  // სართული / ბინა / ოთახი — მთელი სიგანის გაერთიანებული row
   const addFullWidthRow = (
     text,
     { bgColor = "FFFFFFFF", size = 12, key, fontColor = "FFFF0000", border }
@@ -390,12 +406,37 @@ export const exportHVACExcel = async (hvacItems) => {
       right: { style: border },
     };
   };
-  let totalS = 0;
-  let totalT = 0;
-  let totalX = 0;
-  let totalAC = 0;
-  let totalAF = 0;
-  let totalG = 0;
+
+  // ოთახის "სულ" row
+  const addTotalRow = ({ s, t, x, ac, af, g }) => {
+    const rowData = Array(headerTitles.length).fill(null);
+    rowData[0] = "სულ";
+    rowData[12] = s; // სვეტი 13 (ss27 / Qkv)
+    rowData[16] = t; // სვეტი 17 (t27)
+    rowData[21] = x; // სვეტი 22 (x27)
+    rowData[26] = ac; // სვეტი 27 (ac27)
+    rowData[29] = af; // სვეტი 30 (af27)
+    rowData[30] = g; // სვეტი 31 (საბოლოო სითბოს მოდინება)
+    rowData[31] = s; // სვეტი 32 (საბოლოო თბოდანაკარგი)
+
+    const row = sheet.addRow(rowData);
+    for (let c = 1; c <= headerTitles.length; c++) {
+      const cell = row.getCell(c);
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+      cell.font = {
+        size: 12,
+        color: { argb: TOTAL_COLORS[c] || "FF000000" },
+      };
+      if (typeof cell.value === "number") cell.numFmt = "0.00";
+    }
+  };
+
   // Iterate Floors
   hvacItems.forEach((floor) => {
     addFullWidthRow(floor.floorName, {
@@ -404,21 +445,23 @@ export const exportHVACExcel = async (hvacItems) => {
       size: 18,
       border: "medium",
     });
+
     // Iterate Apartments
     floor.apartments.forEach((flat) => {
-      // ბინა
       addFullWidthRow(flat.name, {
         key: "flat",
         size: 15,
         border: "medium",
       });
-      //room
+
+      // Iterate Rooms
       flat.rooms.forEach((room) => {
         addFullWidthRow(room.name, {
           key: "room",
           size: 15,
           border: "thin",
         });
+
         const sumS = room.structures.reduce((sum, s) => sum + s.s27, 0) / 1000;
         const sumT =
           room.structures.reduce((sum, s) => sum + (s.t27 || 0), 0) / 1000;
@@ -429,14 +472,8 @@ export const exportHVACExcel = async (hvacItems) => {
         const sumAF =
           room.structures.reduce((sum, s) => sum + (s.af27 || 0), 0) / 1000;
         const sumG = room.structures.reduce((sum, s) => sum + s.ag27, 0) / 1000;
-        totalS += sumS;
-        totalT += sumT;
-        totalX += sumX;
-        totalAC += sumAC;
-        totalAF += sumAF;
-        totalG += sumG;
+
         room.structures.forEach((s) => {
-          // const lastIndex = idx === room.structures.length - 1;
           const structureTitles = [
             { text: s.type },
             { text: s.L27 },
@@ -468,47 +505,13 @@ export const exportHVACExcel = async (hvacItems) => {
             s.x27 === 0 ? null : { text: s.ad27 },
             s.x27 === 0 ? null : { text: s.Mm27 },
             s.x27 === 0 ? null : { text: s.af27, fontColor: "0000FF" },
-            // { text: s.ag27 },
-            // lastIndex ? { text: sumG.toFixed(2), fontColor: "0000FF" } : null,
-            // lastIndex ? { text: sumS.toFixed(2), fontColor: "FF0000" } : null,
           ];
-          // if (structureTitles.length !== headerTitles.length) {
-          //   console.warn(
-          //     `სვეტები არ ემთხვევა: data=${structureTitles.length}, header=${headerTitles.length}`
-          //   );
-          // }
+
           const newRow = sheet.addRow(
             structureTitles.map((h) => toNum(h?.text))
           );
 
-          // newRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
-          //   const style = structureTitles[colNumber - 1];
-          //   const toArgb = (c) =>
-          //     !c ? "FF000000" : c.length === 6 ? "FF" + c : c;
-
-          //   cell.alignment = { vertical: "middle", horizontal: "center" };
-          //   cell.border = {
-          //     top: { style: "thin" },
-          //     left: { style: "thin" },
-          //     bottom: { style: "thin" },
-          //     right: { style: "thin" },
-          //   };
-          //   cell.font = {
-          //     size: 12,
-          //     color: { argb: toArgb(style?.fontColor) },
-          //   };
-          //   cell.fill = {
-          //     type: "pattern",
-          //     pattern: "solid",
-          //     fgColor: { argb: style?.bgColor || "FFFFFFFF" },
-          //   };
-          //   if (typeof cell.value === "number" && COLUMN_FORMATS[colNumber]) {
-          //     cell.numFmt = COLUMN_FORMATS[colNumber];
-          //   }
-          // });
-          const toArgb = (c) =>
-            !c ? "FF000000" : c.length === 6 ? "FF" + c : c;
-
+          // ყველა სვეტს ვუსვამთ სტილს (ცარიელებსაც)
           for (
             let colNumber = 1;
             colNumber <= headerTitles.length;
@@ -538,48 +541,26 @@ export const exportHVACExcel = async (hvacItems) => {
             }
           }
         });
+
+        // ოთახის ბოლოს "სულ"
+        addTotalRow({
+          s: sumS,
+          t: sumT,
+          x: sumX,
+          ac: sumAC,
+          af: sumAF,
+          g: sumG,
+        });
       });
     });
   });
-  const totalRowData = Array(headerTitles.length).fill(null);
-  totalRowData[0] = "სულ";
-  totalRowData[12] = Number(totalS);
-  totalRowData[16] = Number(totalT);
-  totalRowData[21] = Number(totalX);
-  totalRowData[26] = Number(totalAC);
-  totalRowData[29] = Number(totalAF);
-  totalRowData[30] = Number(totalG);
-  totalRowData[31] = Number(totalS);
-  const TOTAL_COLORS = {
-    13: "FFFF0000",
-    17: "FF0000FF",
-    22: "FF0000FF",
-    27: "FF0000FF",
-    30: "FF0000FF",
-    31: "FF0000FF",
-    32: "FFFF0000",
-  };
-  const totalRow = sheet.addRow(totalRowData);
-  for (let c = 1; c <= headerTitles.length; c++) {
-    const cell = totalRow.getCell(c);
-    cell.alignment = { vertical: "middle", horizontal: "center" };
-    cell.border = {
-      top: { style: "thin" },
-      left: { style: "thin" },
-      bottom: { style: "thin" },
-      right: { style: "thin" },
-    };
-    cell.font = {
-      size: 12,
-      color: { argb: TOTAL_COLORS[c] || "FF000000" },
-    };
-    if (typeof cell.value === "number") cell.numFmt = "0.00";
-  }
+
   widths.forEach((w, i) => {
     sheet.getColumn(i + 1).width = w;
   });
 
   applyOuterBorder(sheet, headerTitles.length);
+
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
