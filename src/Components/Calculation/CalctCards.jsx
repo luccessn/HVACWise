@@ -11,7 +11,7 @@ export const CalctCards = ({ room, setEditingStructure, apt }) => {
   const structures = Array.isArray(room?.structures) ? room.structures : [];
 
   // ჯამური გამოთვლები
-  const sumS27 = structures.reduce((sum, s) => sum + (s.s27 || 0), 0);
+  const sumS27 = structures.reduce((sum, s) => sum + (s.ss27 || 0), 0);
   const sumAg27 = structures.reduce((sum, s) => sum + (s.ag27 || 0), 0);
 
   const sumS = sumS27 / 1000;

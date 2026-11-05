@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+const COLUMN_FORMATS = {
+  9: "0.00", // j27
+  10: "0.0", // q27
+  11: "0.00", // r27
+};
 const toNum = (v) => {
   if (v === null || v === undefined || v === "") return null;
   const n = Number(v);
@@ -311,9 +316,9 @@ export const exportHVACExcel = async (hvacItems) => {
       superTitle: "სითბოს მოდინების სხვა წყაროები",
       items: [
         { text: "წყაროს დასახელება", width: 12 },
-        { text: "მათი რაოდენობა", width: 8 },
+        { text: "რაოდენობა", width: 8 },
         { text: "ერთეულზე მოსული სითბო WAT", width: 8 },
-        { text: "შემასწორებელი კოეფიციენტი K1", width: 8 },
+        { text: "შემასწორებელი კოეფიციენტი K2", width: 8 },
         { text: "ჯამი WAT", width: 12 },
         {
           title: "განათება",
@@ -326,7 +331,7 @@ export const exportHVACExcel = async (hvacItems) => {
       ],
     },
     // { text: "შემოსული სითბო W", fontColor: "FF0000FF" },
-    { text: "სითბოს მოდინება WAT" },
+    // { text: "სითბოს მოდინება WAT" },
     { text: "საბოლოო სითბოს მოდინება kvt", fontColor: "FF0000FF" },
     { text: "საბოლოო თბოდანაკარგი kvt", fontColor: "FFFF0000" },
   ];
@@ -343,7 +348,7 @@ export const exportHVACExcel = async (hvacItems) => {
     {
       title: "სითბოს მოდინების ანგარიში",
       start: 12,
-      end: 33,
+      end: 32,
     },
   ]);
   // rowIndex++;
@@ -385,6 +390,12 @@ export const exportHVACExcel = async (hvacItems) => {
       right: { style: border },
     };
   };
+  let totalS = 0;
+  let totalT = 0;
+  let totalX = 0;
+  let totalAC = 0;
+  let totalAF = 0;
+  let totalG = 0;
   // Iterate Floors
   hvacItems.forEach((floor) => {
     addFullWidthRow(floor.floorName, {
@@ -409,10 +420,23 @@ export const exportHVACExcel = async (hvacItems) => {
           border: "thin",
         });
         const sumS = room.structures.reduce((sum, s) => sum + s.s27, 0) / 1000;
+        const sumT =
+          room.structures.reduce((sum, s) => sum + (s.t27 || 0), 0) / 1000;
+        const sumX =
+          room.structures.reduce((sum, s) => sum + (s.x27 || 0), 0) / 1000;
+        const sumAC =
+          room.structures.reduce((sum, s) => sum + (s.ac27 || 0), 0) / 1000;
+        const sumAF =
+          room.structures.reduce((sum, s) => sum + (s.af27 || 0), 0) / 1000;
         const sumG = room.structures.reduce((sum, s) => sum + s.ag27, 0) / 1000;
-
-        room.structures.forEach((s, idx) => {
-          const lastIndex = idx === room.structures.length - 1;
+        totalS += sumS;
+        totalT += sumT;
+        totalX += sumX;
+        totalAC += sumAC;
+        totalAF += sumAF;
+        totalG += sumG;
+        room.structures.forEach((s) => {
+          // const lastIndex = idx === room.structures.length - 1;
           const structureTitles = [
             { text: s.type },
             { text: s.L27 },
@@ -421,12 +445,12 @@ export const exportHVACExcel = async (hvacItems) => {
             { text: s.length, fontColor: "0096FF" },
             { text: s.height, fontColor: "FA5F55" },
             { text: s.quantity },
-            { text: s.i27 },
+            { text: s.i27 === 0 ? "-" : s.i27 },
             { text: s.j27 },
             { text: s.q27 },
             { text: s.r27 },
             { text: s.s27 },
-            { text: s.s27, fontColor: "FF0000" },
+            { text: s.ss27 === 0 ? "-" : s.ss27, fontColor: "FF0000" },
             { text: s.N27 },
             { text: s.O27 },
             { text: s.P27 },
@@ -444,9 +468,9 @@ export const exportHVACExcel = async (hvacItems) => {
             s.x27 === 0 ? null : { text: s.ad27 },
             s.x27 === 0 ? null : { text: s.Mm27 },
             s.x27 === 0 ? null : { text: s.af27, fontColor: "0000FF" },
-            { text: s.ag27 },
-            lastIndex ? { text: sumG.toFixed(2), fontColor: "0000FF" } : null,
-            lastIndex ? { text: sumS.toFixed(2), fontColor: "FF0000" } : null,
+            // { text: s.ag27 },
+            // lastIndex ? { text: sumG.toFixed(2), fontColor: "0000FF" } : null,
+            // lastIndex ? { text: sumS.toFixed(2), fontColor: "FF0000" } : null,
           ];
           // if (structureTitles.length !== headerTitles.length) {
           //   console.warn(
@@ -457,10 +481,41 @@ export const exportHVACExcel = async (hvacItems) => {
             structureTitles.map((h) => toNum(h?.text))
           );
 
-          newRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+          // newRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+          //   const style = structureTitles[colNumber - 1];
+          //   const toArgb = (c) =>
+          //     !c ? "FF000000" : c.length === 6 ? "FF" + c : c;
+
+          //   cell.alignment = { vertical: "middle", horizontal: "center" };
+          //   cell.border = {
+          //     top: { style: "thin" },
+          //     left: { style: "thin" },
+          //     bottom: { style: "thin" },
+          //     right: { style: "thin" },
+          //   };
+          //   cell.font = {
+          //     size: 12,
+          //     color: { argb: toArgb(style?.fontColor) },
+          //   };
+          //   cell.fill = {
+          //     type: "pattern",
+          //     pattern: "solid",
+          //     fgColor: { argb: style?.bgColor || "FFFFFFFF" },
+          //   };
+          //   if (typeof cell.value === "number" && COLUMN_FORMATS[colNumber]) {
+          //     cell.numFmt = COLUMN_FORMATS[colNumber];
+          //   }
+          // });
+          const toArgb = (c) =>
+            !c ? "FF000000" : c.length === 6 ? "FF" + c : c;
+
+          for (
+            let colNumber = 1;
+            colNumber <= headerTitles.length;
+            colNumber++
+          ) {
+            const cell = newRow.getCell(colNumber);
             const style = structureTitles[colNumber - 1];
-            const toArgb = (c) =>
-              !c ? "FF000000" : c.length === 6 ? "FF" + c : c;
 
             cell.alignment = { vertical: "middle", horizontal: "center" };
             cell.border = {
@@ -478,11 +533,48 @@ export const exportHVACExcel = async (hvacItems) => {
               pattern: "solid",
               fgColor: { argb: style?.bgColor || "FFFFFFFF" },
             };
-          });
+            if (typeof cell.value === "number" && COLUMN_FORMATS[colNumber]) {
+              cell.numFmt = COLUMN_FORMATS[colNumber];
+            }
+          }
         });
       });
     });
   });
+  const totalRowData = Array(headerTitles.length).fill(null);
+  totalRowData[0] = "სულ";
+  totalRowData[12] = Number(totalS);
+  totalRowData[16] = Number(totalT);
+  totalRowData[21] = Number(totalX);
+  totalRowData[26] = Number(totalAC);
+  totalRowData[29] = Number(totalAF);
+  totalRowData[30] = Number(totalG);
+  totalRowData[31] = Number(totalS);
+  const TOTAL_COLORS = {
+    13: "FFFF0000",
+    17: "FF0000FF",
+    22: "FF0000FF",
+    27: "FF0000FF",
+    30: "FF0000FF",
+    31: "FF0000FF",
+    32: "FFFF0000",
+  };
+  const totalRow = sheet.addRow(totalRowData);
+  for (let c = 1; c <= headerTitles.length; c++) {
+    const cell = totalRow.getCell(c);
+    cell.alignment = { vertical: "middle", horizontal: "center" };
+    cell.border = {
+      top: { style: "thin" },
+      left: { style: "thin" },
+      bottom: { style: "thin" },
+      right: { style: "thin" },
+    };
+    cell.font = {
+      size: 12,
+      color: { argb: TOTAL_COLORS[c] || "FF000000" },
+    };
+    if (typeof cell.value === "number") cell.numFmt = "0.00";
+  }
   widths.forEach((w, i) => {
     sheet.getColumn(i + 1).width = w;
   });

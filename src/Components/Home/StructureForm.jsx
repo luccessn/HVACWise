@@ -72,7 +72,7 @@ export const StructureForm = ({
     const F27 = Number(form.length);
     const G27 = Number(form.height);
     const H27 = Number(form.quantity);
-    const I27 = isFloorType ? Number(form.m2) || 0 : F27 * G27 * H27;
+    const I27 = isFloorType ? Number(form.m2) : F27 * G27 * H27;
     const Mm27 = Number(currentRoom?.m2) || 0;
     const z27 = Number(currentRoom?.humans || 0);
     const K27 = Number(currentRoom?.Temp);
@@ -94,7 +94,7 @@ export const StructureForm = ({
 
     const s27 =
       I27 * (J27 || 0) * (M27 || 0) * (selected.q27 || 0) * (selected.r27 || 0);
-
+    const ss27 = isFloorType ? s27 * 1.08 : s27;
     const t27 = I27 * (J27 || 0) * (P27 || 0) * (selected.r27 || 0);
 
     // ოთახში უკვე არის თუ არა სხვა ვიტრაჟი/ფანჯარა
@@ -152,6 +152,7 @@ export const StructureForm = ({
       q27: selected.q27 ?? null,
       r27: selected.r27 ?? null,
       s27,
+      ss27,
       t27,
       ag27,
       Temp: currentRoom?.Temp || "",
